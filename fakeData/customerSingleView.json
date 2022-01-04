@@ -1,8 +1,8 @@
 {
-    "_id": "$cpf",
+    "customerId": "$cpf",
     "lastName": "$last",
     "firstName": "$first",
-    "consultantId": {"$integer": {"min": 1, "max": 1000}},
+    "consultantId": {"$integer": {"min": 1, "max": 100}},
     "birthdate": "$birthday",
     "profession": {"$profession": {"title": true}},
     "address": {
