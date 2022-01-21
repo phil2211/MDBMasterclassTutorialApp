@@ -1,0 +1,10 @@
+{
+    "_id": 1,
+    "lastName": "Ciatti",
+    "firstName": "Allie",
+    "rating": "key",
+    "location": [
+        7.80924,
+        45.26773
+    ]
+}
