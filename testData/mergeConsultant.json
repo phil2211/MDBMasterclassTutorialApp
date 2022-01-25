@@ -1,0 +1,28 @@
+[
+    {
+        "$lookup": {
+            "from": "consultants",
+            "localField": "consultantId",
+            "foreignField": "_id",
+            "as": "consultant"
+        }
+    },
+    {
+        "$project": {
+            "consultant": {
+                "$arrayElemAt": [
+                    "$consultant",
+                    0
+                ]
+            }
+        }
+    },
+    {
+        "$merge": {
+            "into": "customerSingleView",
+            "on": "_id",
+            "whenMatched": "merge",
+            "whenNotMatched": "fail"
+        }
+    }
+]
