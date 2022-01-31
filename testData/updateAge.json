@@ -1,12 +1,14 @@
-[{ "$set": 
-{
-    "age": {"$subtract": [
-        {"$subtract": [{"$year": "$$NOW"}, {"$year": "$birthdate"}]},
-        {"$cond": [
-            {"$gt": [0, {"$subtract": [{"$dayOfYear": "$$NOW"}, {"$dayOfYear": "$birthdate"}]}]},
-            1,
-            0
-        ]}
-    ]} 
+[{
+    "$set": {
+        "age": {
+            "$subtract": [
+                {"$subtract": [{"$year": "$$NOW"}, {"$year": "$birthdate"}]},
+                {"$cond": [
+                    {"$gt": [0, {"$subtract": [{"$dayOfYear": "$$NOW"},{"$dayOfYear": "$birthdate"}]}]},
+                    1,
+                    0
+                ]}
+            ]
+        }
     }
 }]
