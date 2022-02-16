@@ -1,5 +1,32 @@
 {
-    "updateDescription.updatedFields.accounts": {
-        "$exists":true
+    "id": "61ffde3168e2ac37ea849a4d",
+    "name": "updateTotalBalance",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "INSERT",
+            "UPDATE",
+            "REPLACE"
+        ],
+        "database": "MyCustomers",
+        "collection": "customerSingleView",
+        "service_name": "mongodb-atlas",
+        "match": {
+            "updateDescription.updatedFields.accounts": {
+                "$exists": true
+            }
+        },
+        "project": {},
+        "full_document": true,
+        "full_document_before_change": false,
+        "unordered": false
+    },
+    "disabled": false,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "updateTotalBalance"
+            }
+        }
     }
 }

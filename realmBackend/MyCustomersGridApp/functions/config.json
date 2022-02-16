@@ -1,0 +1,11 @@
+[
+    {
+        "name": "updateAge",
+        "private": true
+    },
+    {
+        "name": "updateTotalBalance",
+        "private": true,
+        "run_as_system": true
+    }
+]
