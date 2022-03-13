@@ -1,6 +1,6 @@
 import React from "react";
 import { RealmAppProvider, useRealmApp } from "./RealmApp";
-import HelloApp from "./Pages/HelloApp";
+import Grid from "./Pages/Grid";
 import Login from "./Pages/Login";
 
 const APP_ID = process.env.REACT_APP_REALMAPP;
@@ -14,7 +14,7 @@ const App = () => {
   return (
     <RealmAppProvider appId={APP_ID}>
       <RequireLoggedInUser>
-        <HelloApp />
+        <Grid />
       </RequireLoggedInUser>
     </RealmAppProvider>
     
