@@ -1,0 +1,151 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "accounts": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "object",
+                "properties": {
+                    "balance": {
+                        "bsonType": "decimal"
+                    },
+                    "description": {
+                        "bsonType": "string"
+                    },
+                    "number": {
+                        "bsonType": "string"
+                    },
+                    "type": {
+                        "bsonType": "string"
+                    }
+                }
+            }
+        },
+        "address": {
+            "bsonType": "object",
+            "properties": {
+                "city": {
+                    "bsonType": "string"
+                },
+                "country": {
+                    "bsonType": "string"
+                },
+                "street": {
+                    "bsonType": "string"
+                },
+                "zip": {
+                    "bsonType": "string"
+                }
+            }
+        },
+        "age": {
+            "bsonType": "long"
+        },
+        "birthdate": {
+            "bsonType": "date"
+        },
+        "consultant": {
+            "bsonType": "object",
+            "properties": {
+                "_id": {
+                    "bsonType": "int"
+                },
+                "firstName": {
+                    "bsonType": "string"
+                },
+                "lastName": {
+                    "bsonType": "string"
+                },
+                "location": {
+                    "bsonType": "array",
+                    "items": {
+                        "bsonType": "double"
+                    }
+                },
+                "rating": {
+                    "bsonType": "string"
+                }
+            }
+        },
+        "consultantId": {
+            "bsonType": "int"
+        },
+        "contact": {
+            "bsonType": "object",
+            "properties": {
+                "email": {
+                    "bsonType": "array",
+                    "items": {
+                        "bsonType": "object",
+                        "properties": {
+                            "address": {
+                                "bsonType": "string"
+                            },
+                            "type": {
+                                "bsonType": "string"
+                            }
+                        }
+                    }
+                },
+                "phone": {
+                    "bsonType": "array",
+                    "items": {
+                        "bsonType": "object",
+                        "properties": {
+                            "number": {
+                                "bsonType": "string"
+                            },
+                            "type": {
+                                "bsonType": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "crmInformation": {
+            "bsonType": "object",
+            "properties": {
+                "lastPhysicalContactDate": {
+                    "bsonType": "date"
+                },
+                "lastVirtualContactDate": {
+                    "bsonType": "date"
+                },
+                "rating": {
+                    "bsonType": "string"
+                },
+                "segmentation": {
+                    "bsonType": "string"
+                },
+                "totalContactsYtd": {
+                    "bsonType": "int"
+                },
+                "totalPhysicalContactsLastYearPeriod": {
+                    "bsonType": "int"
+                },
+                "totalVirtualContactsLastYearPeriod": {
+                    "bsonType": "int"
+                }
+            }
+        },
+        "customerId": {
+            "bsonType": "string"
+        },
+        "firstName": {
+            "bsonType": "string"
+        },
+        "lastName": {
+            "bsonType": "string"
+        },
+        "profession": {
+            "bsonType": "string"
+        },
+        "totalBalance": {
+            "bsonType": "decimal"
+        }
+    },
+    "title": "customerSingleView"
+}
