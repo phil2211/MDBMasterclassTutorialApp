@@ -11,5 +11,9 @@
     {
         "name": "resetFunc",
         "private": true
+    },
+    {
+        "name": "getGridData",
+        "private": false
     }
 ]

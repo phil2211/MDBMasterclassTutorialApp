@@ -1,0 +1,20 @@
+{
+    "field_name": "getGridData",
+    "function_name": "getGridData",
+    "input_type": {
+        "properties": {
+            "endRow": {
+                "bsonType": "int"
+            },
+            "startRow": {
+                "bsonType": "int"
+            }
+        },
+        "title": "GridQueryModel",
+        "type": "object"
+    },
+    "input_type_format": "custom",
+    "on_type": "Query",
+    "payload_type": "CustomerSingleView",
+    "payload_type_format": "generated-list"
+}

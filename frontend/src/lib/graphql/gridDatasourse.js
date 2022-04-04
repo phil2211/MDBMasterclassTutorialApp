@@ -2,23 +2,17 @@ import { gql } from "@apollo/client";
 
 export const createServerSideDatasource = ({ client }) => {
     return {
-        getRows: (params) => {
+      getRows: ({ request, successCallback, failCallback }) => {
+        const { startRow, endRow } = request;
             const query = { 
                 query: gql`
-                query {
-                    customerSingleViews (
-                      query: {
-                        age_gte:"20"
-                        address: {
-                          country:"Switzerland"
-                        }
-                      }
-                    ) {
-                          age
-                          customerId
-                          firstName
-                          lastName
-                          totalBalance
+                query gridDataWithInput($queryInput:GridQueryModel) { 
+                  getGridData(input:$queryInput) {
+                      age
+                      customerId
+                      firstName
+                      lastName
+                      totalBalance
                       address {
                         country
                       }
@@ -27,19 +21,26 @@ export const createServerSideDatasource = ({ client }) => {
                         totalContactsYtd
                       }
                     }
-                  }`
+                  }
+                `,
+              variables: {
+                "queryInput": {
+                    startRow,
+                    endRow                  
+                  }
+                }
             };
 
             client.query(query)
                 .then(res => {
-                    return (res.data.customerSingleViews);
+                    return (res.data.getGridData);
                 })
                 .then((rows) => {
-                params.successCallback(rows)
+                successCallback(rows)
             })
             .catch(err => {
                 console.error(err);
-                params.failCallback();
+                failCallback();
             })
         }
     }

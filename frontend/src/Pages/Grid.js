@@ -41,7 +41,9 @@ const Grid = ({ client }) => {
                     columnDefs={columnDefs}
                     onGridReady={onGridReady}
                     rowModelType="serverSide"
-
+                    serverSideStoreType="partial"
+                    cacheBlockSize={20}
+                    maxBlocksInCache={5}
                 />
             </div>
             <div style={{margin: 10}}>
