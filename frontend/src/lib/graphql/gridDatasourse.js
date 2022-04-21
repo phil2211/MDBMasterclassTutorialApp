@@ -1,24 +1,35 @@
 import { gql } from "@apollo/client";
+import { forEach } from "lodash";
 
 export const createServerSideDatasource = ({ client }) => {
     return {
       getRows: ({ request, successCallback, failCallback }) => {
-        const { startRow, endRow } = request;
+        console.log(request);
+        const { startRow, endRow, filterModel } = request;
+        const aFilterModel = [];
+        forEach(filterModel, (value, key) => {
+          aFilterModel.push({ filterField: key, ...value});
+        });
+        console.log(aFilterModel);
             const query = { 
                 query: gql`
                 query gridDataWithInput($queryInput:GridQueryModel) { 
                   getGridData(input:$queryInput) {
-                      age
-                      customerId
-                      firstName
-                      lastName
-                      totalBalance
-                      address {
-                        country
-                      }
-                      crmInformation {
-                        segmentation
-                        totalContactsYtd
+                      lastRow
+                      query
+                      rows {
+                        age
+                        customerId
+                        firstName
+                        lastName
+                        totalBalance
+                        address {
+                          country
+                        }
+                        crmInformation {
+                          segmentation
+                          totalContactsYtd
+                        }
                       }
                     }
                   }
@@ -26,7 +37,8 @@ export const createServerSideDatasource = ({ client }) => {
               variables: {
                 "queryInput": {
                     startRow,
-                    endRow                  
+                    endRow,
+                    filterModel: aFilterModel
                   }
                 }
             };
@@ -35,8 +47,8 @@ export const createServerSideDatasource = ({ client }) => {
                 .then(res => {
                     return (res.data.getGridData);
                 })
-                .then((rows) => {
-                successCallback(rows)
+              .then(({ lastRow, rows }) => {
+                successCallback(rows, lastRow)
             })
             .catch(err => {
                 console.error(err);

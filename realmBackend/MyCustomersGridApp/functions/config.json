@@ -15,5 +15,9 @@
     {
         "name": "getGridData",
         "private": false
+    },
+    {
+        "name": "getFilterStage",
+        "private": false
     }
 ]
