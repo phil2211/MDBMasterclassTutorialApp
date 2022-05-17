@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { forEach } from "lodash";
 
-export const createServerSideDatasource = ({ client }) => {
+export const createServerSideDatasource = ({ client, searchText }) => {
     return {
       getRows: ({ request, successCallback, failCallback }) => {
         console.log(request);
@@ -38,7 +38,8 @@ export const createServerSideDatasource = ({ client }) => {
                 "queryInput": {
                     startRow,
                     endRow,
-                    filterModel: aFilterModel
+                    filterModel: aFilterModel,
+                    searchText
                   }
                 }
             };

@@ -3,8 +3,11 @@ import { RealmAppProvider, useRealmApp } from "./RealmApp";
 import Grid from "./Pages/Grid";
 import Login from "./Pages/Login";
 import RealmApolloProvider from "./lib/graphql/apolloClient";
+import { LicenseManager } from "ag-grid-enterprise";
 
 const APP_ID = process.env.REACT_APP_REALMAPP;
+LicenseManager.setLicenseKey(process.env.REACT_APP_AGGRID);
+
 
 const RequireLoggedInUser = ({ children }) => {
   const app = useRealmApp();

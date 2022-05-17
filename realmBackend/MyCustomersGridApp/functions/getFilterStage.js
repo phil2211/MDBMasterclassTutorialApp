@@ -1,5 +1,4 @@
 exports = (filterModel) => {
-  const isEmpty = require("lodash/isEmpty");
   const forEach = require("lodash/forEach");
   const toLower = require("lodash/toLower");
   

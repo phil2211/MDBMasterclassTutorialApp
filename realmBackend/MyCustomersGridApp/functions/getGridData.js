@@ -1,12 +1,17 @@
-exports = async ({startRow, endRow, filterModel}) => {
+exports = async (params) => {
   const isEmpty = require("lodash/isEmpty");
-  
+  console.log(JSON.stringify(params))
+  const {startRow, endRow, filterModel, searchText} = params;
   const cluster = context.services.get("mongodb-atlas");
   const collection = cluster.db("MyCustomers").collection("customerSingleView");
   
   const agg = [];
   
-  if (!isEmpty(filterModel)) {
+  if(!isEmpty(searchText)) {
+    return await collection.aggregate(context.functions.execute("getSearchStage", {searchText, startRow, endRow})).next();
+  }
+  
+  if(!isEmpty(filterModel)) {
     agg.push(context.functions.execute('getFilterStage', filterModel));
   }
   
@@ -16,7 +21,7 @@ exports = async ({startRow, endRow, filterModel}) => {
       rowCount: [{$count: 'lastRow'}]
     }
   });
-
+  
   agg.push({
     $project: {
       rows: 1,
@@ -25,11 +30,8 @@ exports = async ({startRow, endRow, filterModel}) => {
     }
   });
 
-  
-  return collection.aggregate(agg).next();
-  //return await collection.find({}).skip(startRow).limit(endRow-startRow).toArray();
-};
-
+  return await collection.aggregate(agg).next();
+}
 
 /*********
 * TestData 

@@ -19,5 +19,9 @@
     {
         "name": "getFilterStage",
         "private": false
+    },
+    {
+        "name": "getSearchStage",
+        "private": false
     }
 ]

@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import Button from "@leafygreen-ui/button";
+import TextInput from "@leafygreen-ui/text-input";
+import { debounce } from "lodash";
 import { useRealmApp } from "../RealmApp";
 import Header from "../Components/Header";
 import { createServerSideDatasource } from "../lib/graphql/gridDatasourse";
@@ -22,6 +24,10 @@ const Grid = ({ client }) => {
     const app = useRealmApp();
     const [user] = useState(app.currentUser);
     const [totalRows, setTotalRows] = useState(0)
+    const [searchText, setSearchText] = useState('');
+    const [gridApi, setGridApi] = useState(null);
+
+    const dbSetSearchText = debounce(setSearchText, 500);
     
     const [columnDefs] = useState([
         { field: "customerId" },
@@ -55,9 +61,16 @@ const Grid = ({ client }) => {
         }
     ]);
 
-    const onGridReady = (params) => {
+    useEffect(() => {
+        if (gridApi) {
+            onGridReady(gridApi, searchText);
+        }
+    }, [searchText]);
+
+    const onGridReady = (params, searchText) => {
+        setGridApi(params);
         params.api.sizeColumnsToFit();
-        const datasource = createServerSideDatasource({ client })
+        const datasource = createServerSideDatasource({ client, searchText })
         params.api.setServerSideDatasource(datasource);
     }
 
@@ -68,6 +81,15 @@ const Grid = ({ client }) => {
     return (
         <>
             <Header />
+            <div style={ {marginBottom: 10, width: 500} }>
+                <TextInput
+                    autoComplete="off"
+                    aria-label="enter search text"
+                    type="search"
+                    placeholder="Search"
+                    onChange={event => dbSetSearchText(event.target.value)}
+                    />
+            </div>
             <div         
                 style={{ height: "calc(100vh - 280px)" }}
                 className="ag-theme-alpine"
