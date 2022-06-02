@@ -1,0 +1,12 @@
+{
+  "name": "UpdateStreamer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "bson": "^4.6.4",
+    "lodash": "^4.17.21",
+    "minimist": "^1.2.6",
+    "mongodb": "^4.6.0"
+  }
+}

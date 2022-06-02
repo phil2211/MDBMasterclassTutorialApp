@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
-import { debounce } from "lodash";
+import { debounce, forEach, get } from "lodash";
 import { useRealmApp } from "../RealmApp";
 import Header from "../Components/Header";
 import { createServerSideDatasource } from "../lib/graphql/gridDatasourse";
@@ -26,6 +26,7 @@ const Grid = ({ client }) => {
     const [totalRows, setTotalRows] = useState(0)
     const [searchText, setSearchText] = useState('');
     const [gridApi, setGridApi] = useState(null);
+    const [customerSingleView, setCustomerSingleView] = useState(null);
 
     const dbSetSearchText = debounce(setSearchText, 500);
     
@@ -52,7 +53,9 @@ const Grid = ({ client }) => {
             field: "totalBalance",
             valueFormatter: formatCurrency,
             filter: "agNumberColumnFilter",
-            type: 'numericColumn'
+            type: 'numericColumn',
+            cellRenderer: "agAnimateShowChangeCellRenderer",
+            enableValue: true
         },
         {
             field: "totalContactsYtd",
@@ -67,11 +70,31 @@ const Grid = ({ client }) => {
         }
     }, [searchText]);
 
-    const onGridReady = (params, searchText) => {
+    const onGridReady = async (params, searchText) => {
+        const mongo = app.currentUser.mongoClient("mongodb-atlas");
+        const customerSingleView = mongo.db("MyCustomers").collection("customerSingleView");
+        setCustomerSingleView(customerSingleView);    
         setGridApi(params);
         params.api.sizeColumnsToFit();
-        const datasource = createServerSideDatasource({ client, searchText })
+        const datasource = createServerSideDatasource({ app, client, searchText })
         params.api.setServerSideDatasource(datasource);
+        for await (const change of customerSingleView.watch({
+            filter: {
+                operationType: "update",
+                "updateDescription.updatedFields.totalBalance": {"$exists": true}
+            }
+        })) {
+            console.log(change);
+            params.api.forEachNode(rowNode => {
+                //console.log(rowNode)
+                if (get(change, 'documentKey._id', '').toString() === get(rowNode, 'data._id', '').toString()) {
+                    forEach(change.updateDescription.updatedFields, (value, field) => {
+                        console.log(value.toString(), field);
+                        rowNode.setDataValue(field, value.toString());
+                    })
+                }
+           }) 
+        }
     }
 
     const onModelUpdated = (params) => {
@@ -98,6 +121,7 @@ const Grid = ({ client }) => {
                     columnDefs={columnDefs}
                     onGridReady={onGridReady}
                     onModelUpdated={onModelUpdated}
+                    onFilterChanged={() => gridApi.api.refreshServerSideStore()}
                     rowModelType="serverSide"
                     serverSideStoreType="partial"
                     cacheBlockSize={20}
