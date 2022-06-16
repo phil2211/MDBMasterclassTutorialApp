@@ -21,7 +21,7 @@ const run = async () => {
     const coll = db.collection(argv.collection);
 
     while (true) {
-        const cursor = coll.aggregate([{ $match: {"address.country": "Switzerland"}},{ $sample: { size: 1 } }]);
+        const cursor = coll.aggregate([{ $match: {"address.country": "Switzerland"}},{ $sample: { size: 10 } }]);
         await cursor.forEach(async (doc) => {
             //console.log(_.random(-9999, 9999).toString());
             const accountNumber = doc.accounts[_.random(0, doc.accounts.length - 1)].number
@@ -34,11 +34,10 @@ const run = async () => {
                 {
                     "$set": {
                         "accounts.$.balance": newAmount
-                        //"accounts.$.balance": "new value"
                     }
                 }
             )
-            console.table([await cursor2, { accountNumber }, { newAmount: newAmount.toString() } ]);
+            console.table([Object.assign(await cursor2, { accountNumber }, { newAmount: newAmount.toString() }) ]);
         });
     }
       

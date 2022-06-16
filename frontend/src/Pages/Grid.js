@@ -86,7 +86,6 @@ const Grid = ({ client }) => {
         })) {
             console.log(change);
             params.api.forEachNode(rowNode => {
-                //console.log(rowNode)
                 if (get(change, 'documentKey._id', '').toString() === get(rowNode, 'data._id', '').toString()) {
                     forEach(change.updateDescription.updatedFields, (value, field) => {
                         console.log(value.toString(), field);
