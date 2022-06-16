@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { forEach } from "lodash";
 
-export const createServerSideDatasource = ({ client, searchText }) => {
+export const createServerSideDatasource = ({ app, client, searchText }) => {
     return {
       getRows: ({ request, successCallback, failCallback }) => {
         console.log(request);
@@ -44,6 +44,14 @@ export const createServerSideDatasource = ({ client, searchText }) => {
                   }
                 }
             };
+        // app.currentUser.callFunction("getGridData", { startRow, endRow, filterModel: aFilterModel, searchText })
+        //   .then(res => { 
+        //     successCallback(res.rows, res.lastRow);
+        //   })
+        //   .catch(err => {
+        //     console.error(err);
+        //     failCallback();
+        //   })
             client.query(query)
               .then((res) => {
                 successCallback(res.data.getGridData.rows, res.data.getGridData.lastRow)

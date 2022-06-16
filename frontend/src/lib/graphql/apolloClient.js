@@ -15,8 +15,19 @@ const createRealmApolloClient = (app) => {
         }
     });
 
+    const defaultOptions = {
+        watchQuery: {
+          fetchPolicy: 'no-cache',
+          errorPolicy: 'ignore',
+        },
+        query: {
+          fetchPolicy: 'no-cache',
+          errorPolicy: 'all',
+        },
+      }
+
     const cache = new InMemoryCache();
-    return new ApolloClient({ link, cache });
+    return new ApolloClient({ link, cache, defaultOptions });
 }
 
 const RealmApolloProvider = ({ children }) => {

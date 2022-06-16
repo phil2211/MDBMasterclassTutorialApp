@@ -76,7 +76,7 @@ const Grid = ({ client }) => {
         setCustomerSingleView(customerSingleView);    
         setGridApi(params);
         params.api.sizeColumnsToFit();
-        const datasource = createServerSideDatasource({ app, client, searchText })
+        const datasource = createServerSideDatasource({ client, searchText })
         params.api.setServerSideDatasource(datasource);
         for await (const change of customerSingleView.watch({
             filter: {
