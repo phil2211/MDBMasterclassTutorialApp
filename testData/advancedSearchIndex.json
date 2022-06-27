@@ -1,0 +1,72 @@
+{
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "accounts": {
+        "dynamic": false,
+        "fields": {
+          "description": {
+            "type": "autocomplete"
+          },
+          "number": {
+            "analyzer": "formattedNumbers",
+            "searchAnalyzer": "formattedNumbers",
+            "type": "string"
+          }
+        },
+        "type": "embeddedDocuments"
+      },
+      "address": {
+        "fields": {
+          "age": {
+            "type": "numberFacet"
+          },
+          "birthdate": {
+            "type": "date"
+          },
+          "city": {
+            "type": "autocomplete"
+          },
+          "country": {
+            "type": "autocomplete"
+          },
+          "street": {
+            "type": "autocomplete"
+          },
+          "totalBalance": {
+            "type": "numberFacet"
+          }
+        },
+        "type": "document"
+      },
+      "customerId": {
+        "analyzer": "formattedNumbers",
+        "searchAnalyzer": "formattedNumbers",
+        "type": "string"
+      },
+      "firstName": {
+        "type": "autocomplete"
+      },
+      "lastName": {
+        "type": "autocomplete"
+      }
+    }
+  },
+  "analyzers": [
+    {
+      "charFilters": [
+        {
+          "mappings": {
+            "-": "",
+            ".": ""
+          },
+          "type": "mapping"
+        }
+      ],
+      "name": "formattedNumbers",
+      "tokenizer": {
+        "type": "keyword"
+      }
+    }
+  ]
+}

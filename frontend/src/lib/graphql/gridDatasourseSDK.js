@@ -25,6 +25,8 @@ export const createServerSideDatasource = ({ app, client, searchText }) => {
                         lastName
                         totalBalance
                         address {
+                          street
+                          city
                           country
                         }
                         crmInformation {

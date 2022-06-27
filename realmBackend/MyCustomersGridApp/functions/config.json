@@ -23,5 +23,9 @@
     {
         "name": "getSearchStage",
         "private": false
+    },
+    {
+        "name": "getEnhancedSearchStage",
+        "private": false
     }
 ]

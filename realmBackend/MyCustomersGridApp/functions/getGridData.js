@@ -1,14 +1,12 @@
-exports = async (params) => {
+exports = async ({startRow, endRow, filterModel, searchText}) => {
   const isEmpty = require("lodash/isEmpty");
-  console.log(JSON.stringify(params))
-  const {startRow, endRow, filterModel, searchText} = params;
   const cluster = context.services.get("mongodb-atlas");
   const collection = cluster.db("MyCustomers").collection("customerSingleView");
   
   const agg = [];
   
   if(!isEmpty(searchText)) {
-    return await collection.aggregate(context.functions.execute("getSearchStage", {searchText, startRow, endRow})).next();
+    return await collection.aggregate(context.functions.execute("getEnhancedSearchStage", {searchText, startRow, endRow})).next();
   }
   
   if(!isEmpty(filterModel)) {
@@ -17,7 +15,7 @@ exports = async (params) => {
   
   agg.push({
     $facet: {
-      rows: [{"$skip": startRow}, {"$limit": endRow-startRow}],
+      rows: [{"$skip": startRow?startRow:0}, {"$limit": endRow-startRow?endRow-startRow:2000}],
       rowCount: [{$count: 'lastRow'}]
     }
   });

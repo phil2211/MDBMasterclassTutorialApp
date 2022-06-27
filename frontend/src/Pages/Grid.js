@@ -31,13 +31,25 @@ const Grid = ({ client }) => {
     const dbSetSearchText = debounce(setSearchText, 500);
     
     const [columnDefs] = useState([
-        { field: "customerId" },
+        { field: "customerId", cellRenderer: "agGroupCellRenderer" },
         { field: "lastName" },
         { field: "firstName" },
         {
             field: "age",
             filter: "agNumberColumnFilter",
             type: 'numericColumn'
+        },
+        {
+            field: "street",
+            colId: "address.country",
+            filter: 'agTextColumnFilter',
+            valueGetter: "data.address.street"
+        },
+        {
+            field: "city",
+            colId: "address.country",
+            filter: 'agTextColumnFilter',
+            valueGetter: "data.address.city"
         },
         {
             field: "country",
@@ -63,6 +75,13 @@ const Grid = ({ client }) => {
             type: 'numericColumn'
         }
     ]);
+
+    const detailColumnDefs = [
+        {field: "number"},
+        {field: "description"},
+        {field: "type"},
+        {field: "balance"}
+    ]
 
     useEffect(() => {
         if (gridApi) {
@@ -125,6 +144,16 @@ const Grid = ({ client }) => {
                     serverSideStoreType="partial"
                     cacheBlockSize={20}
                     maxBlocksInCache={5}
+                    masterDetail={ true }
+                    detailCellRendererParams={{
+                        getDetailRowData: (params) => {
+                            console.log(params.data)
+                            params.successCallback(params.data.accounts)
+                        },
+                        detailGridOptions: {
+                            columnDefs: detailColumnDefs
+                        }
+                    }}    
                 />
             </div>
             <div style={{ margin: 10 }}>
