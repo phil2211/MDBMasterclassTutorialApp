@@ -25,7 +25,15 @@
         "private": false
     },
     {
+        "name": "getCustomEnhancedSearchStage",
+        "private": false
+    },
+    {
         "name": "getEnhancedSearchStage",
+        "private": false
+    },
+    {
+        "name": "getMultiaddressSearchStage",
         "private": false
     }
 ]

@@ -1,12 +1,16 @@
 exports = ({searchText, startRow, endRow}) => {
   return [
     {$search: {
-       index: 'default',
+       index: "default",
        text: {
         query: searchText,
         path: [
-         'lastName',
-         'address.country'
+         "lastName",
+         "firstName",
+         "address.street",
+         "address.city",
+         "address.country",
+         "customerId"
         ],
         fuzzy: {
          maxEdits: 1
@@ -14,34 +18,14 @@ exports = ({searchText, startRow, endRow}) => {
        }
     }}, 
     {$set: {
-       score: {
-        $meta: 'searchScore'
-       }
+      score: {$meta: 'searchScore'}
     }},
-    {$facet: {
-       rows: [
-        {
-         $skip: startRow
-        },
-        {
-         $limit: endRow-startRow
-        }
-       ],
-       lastRow: [
-        {
-         $replaceWith: '$$SEARCH_META'
-        },
-        {
-         $limit: 1
-        }
-       ]
+    { $facet: {
+        rows: [{ $skip: startRow }, { $limit: endRow-startRow }],
+        lastRow: [{$replaceWith: "$$SEARCH_META"},{$limit: 1}]
     }}, 
     {$set: {
-       lastRow: {
-        $arrayElemAt: [
-         '$lastRow.count.lowerBound',
-         0
-        ]}
+       lastRow: {$arrayElemAt: ["$lastRow.count.lowerBound",0]}
     }}
   ]
 }

@@ -1,11 +1,13 @@
 exports = async ({startRow, endRow, filterModel, searchText}) => {
   const isEmpty = require("lodash/isEmpty");
   const cluster = context.services.get("mongodb-atlas");
+  //const collection = cluster.db("MyCustomers").collection("customerSingleViewMultiAddress");
   const collection = cluster.db("MyCustomers").collection("customerSingleView");
   
   const agg = [];
   
   if(!isEmpty(searchText)) {
+    //return await collection.aggregate(context.functions.execute("getMultiaddressSearchStage", {searchText, startRow, endRow})).next();
     return await collection.aggregate(context.functions.execute("getEnhancedSearchStage", {searchText, startRow, endRow})).next();
   }
   

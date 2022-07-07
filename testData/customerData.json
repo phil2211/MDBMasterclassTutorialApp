@@ -9,7 +9,18 @@
         "street": "$street",
         "zip": "$zip",
         "city": "$city",
-        "country": {"$country": {"full": true}}
+        "country": {"$country": {"full": true}}     
+    },
+    "addresses": {
+        "$array": {
+            "of": {
+                "street": "$street",
+                "zip": "$zip",
+                "city": "$city",
+                "country": {"$country": {"full": true}}     
+            },
+            "number": {"$integer": {"min": 1, "max": 5}}
+        }
     },
     "contact": {
         "email": {
