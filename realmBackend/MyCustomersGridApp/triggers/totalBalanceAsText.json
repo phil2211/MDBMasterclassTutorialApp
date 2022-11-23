@@ -1,5 +1,5 @@
 {
-    "name": "updateTotalBalance",
+    "name": "totalBalanceAsText",
     "type": "DATABASE",
     "config": {
         "operation_types": [
@@ -12,13 +12,13 @@
         "service_name": "mongodb-atlas",
         "match": {
             "updateDescription.updatedFields.totalBalance": {
-                "$exists": false
+                "$exists": true
             }
         },
         "project": {},
-        "full_document": true,
+        "full_document": false,
         "full_document_before_change": false,
-        "unordered": true,
+        "unordered": false,
         "skip_catchup_events": false,
         "tolerate_resume_errors": false
     },
@@ -26,7 +26,7 @@
     "event_processors": {
         "FUNCTION": {
             "config": {
-                "function_name": "updateTotalBalance"
+                "function_name": "setBalanceAsString"
             }
         }
     }

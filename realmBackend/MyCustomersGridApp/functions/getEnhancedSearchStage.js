@@ -1,4 +1,4 @@
-exports = ({searchText, startRow, endRow}) => {
+exports = ({searchText, startRow, endRow, sortModel}) => {
   const split = require("lodash/split");
   const trim = require("lodash/trim");
 

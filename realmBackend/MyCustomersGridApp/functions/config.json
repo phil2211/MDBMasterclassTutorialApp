@@ -1,5 +1,9 @@
 [
     {
+        "name": "updateAccountBalance",
+        "private": false
+    },
+    {
         "name": "updateAge",
         "private": true
     },
@@ -9,11 +13,15 @@
         "run_as_system": true
     },
     {
-        "name": "resetFunc",
-        "private": true
+        "name": "getGridData",
+        "private": false
     },
     {
-        "name": "getGridData",
+        "name": "getMultiaddressSearchStage",
+        "private": false
+    },
+    {
+        "name": "getEnhancedSearchStage",
         "private": false
     },
     {
@@ -29,11 +37,46 @@
         "private": false
     },
     {
-        "name": "getEnhancedSearchStage",
+        "name": "resetFunc",
+        "private": true
+    },
+    {
+        "name": "getEnhancedSearchStageFastCount",
         "private": false
     },
     {
-        "name": "getMultiaddressSearchStage",
+        "name": "getGridDataFastCount",
         "private": false
+    },
+    {
+        "name": "getSearchSortModel",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "setBalanceAsString",
+        "private": true
+    },
+    {
+        "name": "searchMetaTest",
+        "private": false
+    },
+    {
+        "name": "getEnhancedSearchStageSlowSort",
+        "private": false
+    },
+    {
+        "name": "getSortStage",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "authFunc",
+        "private": false
+    },
+    {
+        "name": "test",
+        "private": false,
+        "disable_arg_logs": true
     }
 ]

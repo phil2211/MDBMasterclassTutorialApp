@@ -1,9 +1,9 @@
 {
-    "id": "61f7db063603882452cf0057",
     "name": "updateAge",
     "type": "SCHEDULED",
     "config": {
-        "schedule": "5 23 * * *"
+        "schedule": "5 23 * * *",
+        "skip_catchup_events": false
     },
     "disabled": false,
     "event_processors": {

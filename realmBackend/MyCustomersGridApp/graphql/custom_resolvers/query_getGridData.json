@@ -1,64 +1,27 @@
 {
     "field_name": "getGridData",
-    "function_name": "getGridData",
+    "function_name": "getGridDataFastCount",
     "input_type": {
         "properties": {
             "endRow": {
                 "bsonType": "int"
             },
-            "filterModel": {
+            "searchText": {
+                "bsonType": "string"
+            },
+            "sortModel": {
                 "bsonType": "array",
                 "items": {
                     "bsonType": "object",
                     "properties": {
-                        "condition1": {
-                            "bsonType": "object",
-                            "properties": {
-                                "filter": {
-                                    "bsonType": "string"
-                                },
-                                "filterType": {
-                                    "bsonType": "string"
-                                },
-                                "type": {
-                                    "bsonType": "string"
-                                }
-                            }
-                        },
-                        "condition2": {
-                            "bsonType": "object",
-                            "properties": {
-                                "filter": {
-                                    "bsonType": "string"
-                                },
-                                "filterType": {
-                                    "bsonType": "string"
-                                },
-                                "type": {
-                                    "bsonType": "string"
-                                }
-                            }
-                        },
-                        "filter": {
+                        "colId": {
                             "bsonType": "string"
                         },
-                        "filterField": {
-                            "bsonType": "string"
-                        },
-                        "filterType": {
-                            "bsonType": "string"
-                        },
-                        "operator": {
-                            "bsonType": "string"
-                        },
-                        "type": {
+                        "sort": {
                             "bsonType": "string"
                         }
                     }
                 }
-            },
-            "searchText": {
-                "bsonType": "string"
             },
             "startRow": {
                 "bsonType": "int"
