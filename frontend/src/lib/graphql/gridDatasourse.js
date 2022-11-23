@@ -1,16 +1,37 @@
 import { gql } from "@apollo/client";
 import { forEach } from "lodash";
 
+export const updateAccount = ({ client, accountNumber, amount }) => {
+  const query = {
+    query: gql`
+    mutation($accountNumber:String, $amount:Int) {
+      updateAccountBalance(input: {
+        accountNumber:$accountNumber,
+        amount:$amount
+      }) {
+        aknowledge
+      }
+    }
+    `,
+    variables: {
+      accountNumber,
+      amount
+    }
+  };
+  
+
+  client.query(query)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch(err => console.error(err));
+}
+
 export const createServerSideDatasource = ({ client, searchText }) => {
     return {
       getRows: ({ request, successCallback, failCallback }) => {
-        console.log(request);
-        const { startRow, endRow, filterModel } = request;
-        const aFilterModel = [];
-        forEach(filterModel, (value, key) => {
-          aFilterModel.push({ filterField: key, ...value});
-        });
-        console.log(aFilterModel);
+        //console.log(request);
+        const { startRow, endRow, sortModel } = request;
             const query = { 
                 query: gql`
                 query gridDataWithInput($queryInput:GridQueryModel) { 
@@ -47,14 +68,14 @@ export const createServerSideDatasource = ({ client, searchText }) => {
                 "queryInput": {
                     startRow,
                     endRow,
-                    filterModel: aFilterModel,
+                    sortModel,
                     searchText
                   }
                 }
             };
             client.query(query)
               .then((res) => {
-                successCallback(res.data.getGridData.rows, res.data.getGridData.lastRow)
+                successCallback(res.data.getGridData.rows, res.data.getGridData.lastRow?res.data.getGridData.lastRow:0)
             })
             .catch(err => {
                 console.error(err);

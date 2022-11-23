@@ -15,6 +15,7 @@ const Login = () => {
     const handleLogin = async () => {
         try {
             await app.logIn(Realm.Credentials.emailPassword(email, password));
+            //await app.logIn(Realm.Credentials.function({ "foo": "bar"}));
             //await app.logIn(Realm.Credentials.anonymous());
         } catch (e) {
             console.error("error loggin in");

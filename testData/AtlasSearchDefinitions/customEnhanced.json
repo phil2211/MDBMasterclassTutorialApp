@@ -18,12 +18,6 @@
       },
       "address": {
         "fields": {
-          "age": {
-            "type": "numberFacet"
-          },
-          "birthdate": {
-            "type": "date"
-          },
           "city": {
             "type": "autocomplete"
           },
@@ -32,13 +26,18 @@
           },
           "street": {
             "type": "autocomplete"
-          },
-          "totalBalance": {
-            "type": "numberFacet"
           }
         },
         "type": "document"
       },
+      "age": [
+        {
+          "type": "numberFacet"
+        },
+        {
+          "type": "number"
+        }
+      ],
       "customerId": {
         "analyzer": "formattedNumbers",
         "searchAnalyzer": "formattedNumbers",
@@ -49,7 +48,17 @@
       },
       "lastName": {
         "type": "autocomplete"
-      }
+      },
+      "totalBalance": [
+        {
+          "representation": "double",
+          "type": "numberFacet"
+        },
+        {
+          "representation": "double",
+          "type": "number"
+        }
+      ]
     }
   },
   "analyzers": [

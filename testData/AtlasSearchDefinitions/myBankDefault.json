@@ -1,0 +1,43 @@
+{
+    "mappings": {
+      "dynamic": false,
+      "fields": {
+        "_id": {
+          "type": "string"
+        },
+        "accounts": {
+          "dynamic": false,
+          "fields": {
+            "number": {
+              "type": "autocomplete"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "type": "embeddedDocuments"
+        },
+        "address": {
+          "fields": {
+            "city": {
+              "maxGrams": 20,
+              "type": "autocomplete"
+            },
+            "street": {
+              "maxGrams": 20,
+              "type": "autocomplete"
+            }
+          },
+          "type": "document"
+        },
+        "firstName": {
+          "maxGrams": 20,
+          "type": "autocomplete"
+        },
+        "lastName": {
+          "maxGrams": 20,
+          "type": "autocomplete"
+        }
+      }
+    }
+  }

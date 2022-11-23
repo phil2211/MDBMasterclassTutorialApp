@@ -11,6 +11,18 @@
         "city": "$city",
         "country": {"$country": {"full": true}}     
     },
+    "addresses": {
+        "$array": {
+            "of": {
+                "type": {"$choose": {"from": ["billing", "destination", "2nd location"], "weights": [2, 1, 1]}},
+                "street": "$street",
+                "zip": "$zip",
+                "city": "$city",
+                "country": {"$country": {"full": true}}     
+            },
+            "number": {"$integer": {"min": 1, "max": 5}}
+        }
+    },
     "contact": {
         "email": {
             "$array": {

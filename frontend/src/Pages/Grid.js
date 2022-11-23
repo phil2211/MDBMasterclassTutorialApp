@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { AgGridReact } from "ag-grid-react";
 import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
 import { debounce, forEach, get } from "lodash";
 import { useRealmApp } from "../RealmApp";
 import Header from "../Components/Header";
-import { createServerSideDatasource } from "../lib/graphql/gridDatasourse";
+import { createServerSideDatasource, updateAccount } from "../lib/graphql/gridDatasourse";
 import apolloClientConsumer from "../lib/graphql/apolloClientConsumer";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import "ag-grid-enterprise";
+import { BSON } from "realm-web";
 
 const formatCurrency = (params) => {
     return new Intl.NumberFormat('de-DE', {style: 'currency', currency: 'EUR'}).format(params.value);
@@ -37,7 +38,8 @@ const Grid = ({ client }) => {
         {
             field: "age",
             filter: "agNumberColumnFilter",
-            type: 'numericColumn'
+            type: 'numericColumn',
+            sortable: true
         },
         {
             field: "street",
@@ -71,16 +73,30 @@ const Grid = ({ client }) => {
         },
         {
             field: "totalContactsYtd",
+            colId: "crmInformation.totalContactsYtd",
             valueGetter: "data.crmInformation.totalContactsYtd",
-            type: 'numericColumn'
+            type: 'numericColumn',
+            sortable: true
         }
     ]);
 
     const detailColumnDefs = [
-        {field: "number"},
-        {field: "description"},
-        {field: "type"},
-        {field: "balance"}
+        { field: "number" },
+        { field: "description" },
+        { field: "type" },
+        { field: "balance" },
+        {
+            field: "actions",
+            cellRenderer: BtnCellRenderer,
+            cellRendererParams: {
+                clicked: function (field, action) {
+                    let intBalance = parseInt(document.querySelector("#root > div.ag-theme-alpine > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-full-width-container > div > div > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-center-cols-clipper > div > div > div.ag-row-even.ag-row.ag-row-level-0.ag-row-position-absolute.ag-row-first.ag-row-focus > div:nth-child(4)").textContent);
+                    action === "deposit" ? intBalance += 100 : intBalance -= 100;
+                    updateAccount({ client, accountNumber: field, amount: action === "deposit" ? 100 : -100 })
+                    //console.log(document.querySelector("#root > div.ag-theme-alpine > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-full-width-container > div > div > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-center-cols-clipper > div > div > div.ag-row-even.ag-row.ag-row-level-0.ag-row-position-absolute.ag-row-first.ag-row-focus > div.ag-cell.ag-cell-not-inline-editing.ag-cell-normal-height.ag-cell-focus.ag-cell-value"));
+                    document.querySelector("#root > div.ag-theme-alpine > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-full-width-container > div > div > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-center-cols-clipper > div > div > div.ag-row-even.ag-row.ag-row-level-0.ag-row-position-absolute.ag-row-first.ag-row-focus > div:nth-child(4)").textContent = intBalance.toString()
+              },
+            }}
     ]
 
     useEffect(() => {
@@ -90,6 +106,8 @@ const Grid = ({ client }) => {
     }, [searchText]);
 
     const onGridReady = async (params, searchText) => {
+        //const result = await app.currentUser.functions.test("error");
+        //console.log("RESULT", result);
         const mongo = app.currentUser.mongoClient("mongodb-atlas");
         const customerSingleView = mongo.db("MyCustomers").collection("customerSingleView");
         setCustomerSingleView(customerSingleView);    
@@ -100,13 +118,12 @@ const Grid = ({ client }) => {
         for await (const change of customerSingleView.watch({
             filter: {
                 operationType: "update",
-                "updateDescription.updatedFields.totalBalance": {"$exists": true}
+               "updateDescription.updatedFields.totalBalance": {"$exists": true}
             }
         })) {
             params.api.forEachNode(rowNode => {
                 if (get(change, 'documentKey._id', '').toString() === get(rowNode, 'data._id', '').toString()) {
                     forEach(change.updateDescription.updatedFields, (value, field) => {
-                        console.log(value.toString(), field);
                         rowNode.setDataValue(field, value.toString());
                     })
                 }
@@ -145,11 +162,17 @@ const Grid = ({ client }) => {
                     maxBlocksInCache={5}
                     masterDetail={ true }
                     detailCellRendererParams={{
+                        refreshStrategy: 'rows',
                         getDetailRowData: (params) => {
-                            console.log(params.data)
-                            params.successCallback(params.data.accounts)
+                            console.log("DETAILS")
+                            params.successCallback(() => {
+                                return params.data.accounts;
+                            })
                         },
                         detailGridOptions: {
+                            getRowId: (params) => {
+                                return params.data.number;
+                            },  
                             columnDefs: detailColumnDefs
                         }
                     }}    
@@ -166,3 +189,46 @@ const Grid = ({ client }) => {
 }
 
 export default apolloClientConsumer(Grid);
+
+
+export class BtnCellRenderer extends Component {
+    constructor(props) {
+      super(props);
+      this.btnDepositHandler = this.btnDepositHandler.bind(this);
+      this.btnWithdrawHandler = this.btnWithdrawHandler.bind(this);
+    }
+    btnDepositHandler() {
+        this.props.clicked(this.props.data.number, "deposit");
+    }
+    btnWithdrawHandler() {
+        this.props.clicked(this.props.data.number, "withdraw");
+    } 
+    render() {
+        return (
+          <>
+                <button style={{marginRight: 10}} onClick={this.btnDepositHandler}>Deposit</button>
+                <button onClick={this.btnWithdrawHandler}>Withdraw</button>
+          </>
+      )
+    }
+}
+
+
+const tokenizer = (dotString) => {
+    const result = {};
+
+    // Split path into component parts
+    const parts = dotString.split('.');
+
+    // Create sub-objects along path as needed
+    let target = result;
+    while (parts.length > 1) {
+        const part = parts.shift();
+        target = target[part] = target[part] || {};
+    }
+
+    // Set value at end of path
+    target[parts[0]] = dotString
+  
+    return result;
+}

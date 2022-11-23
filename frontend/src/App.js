@@ -1,6 +1,7 @@
 import React from "react";
 import { RealmAppProvider, useRealmApp } from "./RealmApp";
 import Grid from "./Pages/Grid";
+import TestGrid from "./Pages/TestGrid";
 import Login from "./Pages/Login";
 import RealmApolloProvider from "./lib/graphql/apolloClient";
 import { LicenseManager } from "ag-grid-enterprise";
