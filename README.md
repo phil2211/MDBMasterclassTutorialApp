@@ -29,9 +29,13 @@ For the latest version of the demo clone tha **main** branch and follow these in
 1. Create an [Atlas](https://cloud.mongodb.com) account
 2. Create a free cluster and name it MyCustomers
 3. Install [mgenerate](https://github.com/rueckstiess/mgeneratejs) 
-```npm install -g mgeneratejs```
+```
+  npm install -g mgeneratejs
+```
 4. Install the [Realm-CLI](https://www.mongodb.com/docs/atlas/app-services/cli/)
-```npm install -g mongodb-realm-cli```
+```
+  npm install -g mongodb-realm-cli
+```
 5. Load testdata to your cluster using the *loadTestdata.sh* script. Please set your cluster connection string with user and pw directly in the script then run the following command
 ```
   sh testData/loadTestdata.sh
