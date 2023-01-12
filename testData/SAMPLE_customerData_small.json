@@ -1,0 +1,11 @@
+{
+    "_id": 1,
+    "customerId": "002.720.479-02",
+    "lastName": "Venturini",
+    "firstName": "Victoria",
+    "address": {
+        "street": "Main street 1",
+        "zip": "1234",
+        "city": "Capital City"
+    }
+}
