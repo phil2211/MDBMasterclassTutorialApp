@@ -1,7 +1,9 @@
-# Welcome
-This is a MongoDB Atlas App Services Demo which shows how to implement several concepts of the Atlas App Services in combination with the powerful lucene based Atlas Search feature.
+# Welcome to the MongoDB Atlas Demo App
+This is a MongoDB Atlas App Services demo which shows how to implement several concepts of the Atlas App Services in combination with the powerful lucene based Atlas Search feature.
 
-There is (still in german) a YouTube tutorial available which shows step by step how to build and use this app.
+You can find a quick overview what you get by using the code in this repo by watching my presentation. [Click here for the video on YouTube](https://youtu.be/vCH4Z4-LS6M)
+
+There is (still in german) a YouTube tutorial available which shows step by step how to build and use this app. You can find them [here](https://youtube.com/playlist?list=PLw_MyzE5EpxVOrsqs9SyCnl3exSkPm1TR). English speaking audience: Please use subtitle to follow the tutorial. English version is in production ;-) 
 
 > **MongoDB Realm** was renamed in summer 2022 to **Atlas App Services**
 
@@ -26,7 +28,7 @@ For the latest version of the demo clone tha **main** branch and follow these in
 
 > Everything works on a Atlas Free Tier. No Credit Card needed
 
-1. Create an [Atlas](https://cloud.mongodb.com) account
+1. Create an [Atlas](https://cloud.mongodb.com) account. If you are new to Atlas, please watch [Intro to MongoDB Atlas in 10 mins](https://youtu.be/xrc7dIO_tXk) to get you started
 2. Create a free cluster and name it MyCustomers
 3. Install [mgenerate](https://github.com/rueckstiess/mgeneratejs) 
 ```
@@ -62,7 +64,7 @@ mongosh "mongodb+srv://mycustomers.<clusterId>.mongodb.net/MyCustomers" --apiVer
   );'
   ```
 7. Create an API key for Atlas using the "Access Manager" in Atlas
-8. Login your realm-CLI 
+8. Login your realm-CLI using the generated API key
 ```
 realm-cli login
 ```
@@ -75,7 +77,7 @@ realm-cli push --include-package-json
 ```
 realm-cli users create --type email --email test@example.com --password Passw0rd
 ```
-11. Create a Atlas Search index using the content of the following file and name it "customEnhanced"
+11. Create an Atlas Search index using the content of the following file and name it "customEnhanced". 
 ```
 testdata/AtlasSearchDefinitions/customEnhanced.json
 ```
