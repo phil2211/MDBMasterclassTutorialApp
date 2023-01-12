@@ -32,7 +32,7 @@ For the latest version of the demo clone tha **main** branch and follow these in
 ```npm install -g mgeneratejs```
 4. Install the [Realm-CLI](https://www.mongodb.com/docs/atlas/app-services/cli/)
 ```npm install -g mongodb-realm-cli```
-5. Load testdata to your cluster using the *loadTestdata.sh* script
+5. Load testdata to your cluster using the *loadTestdata.sh* script. Please set your cluster connection string with user and pw directly in the script
 6. Let the age field be calculated by using the following MongoDB query:
 ```mongodb
 use myCustomers
@@ -77,8 +77,6 @@ db.customerSingleView.updateMany(
 12. Install all dependencies for the frontend
 ```
   cd frontend
-```
-```
   npm install
 ```
 12. Start your frontend and login
