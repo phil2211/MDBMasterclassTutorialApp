@@ -1,3 +1,4 @@
+import React from "react";
 import { ApolloConsumer } from "@apollo/client";
 
 const apolloClientConsumer = (WrappedComponent) => {

@@ -36,13 +36,13 @@ npm install -g mgeneratejs
 ```
 npm install -g mongodb-realm-cli
 ```
-5. Load testdata to your cluster using the *loadTestdata.sh* script. Please set your cluster connection string with user and pw directly in the script then run the following command
+5. Load testdata to your cluster using the *loadTestdata.sh* script. Run the following command with your username password and the clusterId from your new created cluster
 ```
-sh testData/loadTestdata.sh
+sh testData/loadTestdata.sh <user> <password> <clusterId>
 ```
-6. Let the age field be calculated by using the following MongoDB query in the mongoshell:
+6. Let the age field be calculated by using the following MongoDB query in the mongoshell (please replace clusterId and username with your values):
 ```bash
-mongosh "mongodb+srv://mycustomers.aagmh.mongodb.net/MyCustomers" --apiVersion 1 --username <username> --eval 'db.customerSingleView.updateMany(
+mongosh "mongodb+srv://mycustomers.<clusterId>.mongodb.net/MyCustomers" --apiVersion 1 --username <username> --eval 'db.customerSingleView.updateMany(
     {},
     [{
       $set:
@@ -82,10 +82,12 @@ testdata/AtlasSearchDefinitions/customEnhanced.json
 
 12. Install all dependencies for the frontend
 ```
-cd frontend
+cd ../../frontend
 npm install
 ```
-12. Start your frontend and login
+12. Copy the ``.env`` file to a new file called ``.env.local``
+13. Edit the ``.env.local`` file and paste your App-ID. You can find it by opening the "App Services" tab in Atlas and there opening the newly deployed "MyCustomersGridApp" 
+13. Start your frontend and login
 ```
 npm start
 ```
