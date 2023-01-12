@@ -1,0 +1,19 @@
+query gridDataWithInput($queryInput:GridQueryModel) { 
+  getGridData(input:$queryInput) {
+    lastName
+    firstName
+    customerId
+    age
+    address {
+      country
+    }
+  }
+}
+
+variables
+{
+  "queryInput": {
+    "startRow": 5,
+    "endRow":10
+  }
+}

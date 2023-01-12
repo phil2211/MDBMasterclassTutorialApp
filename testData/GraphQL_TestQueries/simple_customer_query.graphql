@@ -1,0 +1,22 @@
+query {
+  customerSingleViews (
+    query: {
+      age_lte: "20"
+      address:{country: "Switzerland"}
+    })
+  {
+    _id
+		age
+		customerId
+		firstName
+		lastName
+    crmInformation {
+      totalContactsYtd
+    }
+    address {
+      city
+      country
+    }
+		totalBalance
+  }
+}

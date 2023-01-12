@@ -1,0 +1,33 @@
+{
+    "name": "totalBalanceAsText",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "INSERT",
+            "UPDATE",
+            "REPLACE"
+        ],
+        "database": "MyCustomers",
+        "collection": "customerSingleView",
+        "service_name": "mongodb-atlas",
+        "match": {
+            "updateDescription.updatedFields.totalBalance": {
+                "$exists": true
+            }
+        },
+        "project": {},
+        "full_document": false,
+        "full_document_before_change": false,
+        "unordered": false,
+        "skip_catchup_events": false,
+        "tolerate_resume_errors": false
+    },
+    "disabled": false,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "setBalanceAsString"
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "mappings": {
+      "dynamic": false,
+      "fields": {
+        "address": {
+          "fields": {
+            "city": {
+              "type": "autocomplete"
+            },
+            "country": {
+              "type": "autocomplete"
+            },
+            "street": {
+              "type": "autocomplete"
+            }
+          },
+          "type": "document"
+        },
+        "customerId": {
+          "type": "autocomplete"
+        },
+        "firstName": {
+          "type": "autocomplete"
+        },
+        "lastName": {
+          "type": "autocomplete"
+        }
+      }
+    }
+  }

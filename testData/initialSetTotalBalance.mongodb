@@ -1,0 +1,12 @@
+use("MyCustomers");
+
+db.customerSingleView.updateMany(
+    {}, 
+    [{
+        "$set": {
+            "totalBalance": {
+                "$sum": "$accounts.balance"
+            }
+        }
+    }]
+);

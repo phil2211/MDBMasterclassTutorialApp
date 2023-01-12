@@ -1,0 +1,177 @@
+{
+    "customerId": "002.720.479-02",
+    "lastName": "Venturini",
+    "firstName": "Victoria",
+    "consultantId": 21,
+    "birthdate": {
+        "$date": "1957-10-03T16:21:35.292Z"
+    },
+    "profession": "Investment Banker",
+    "address": {
+        "street": "Keulo Pass",
+        "zip": "47478",
+        "city": "Vizolu",
+        "country": "Diego Garcia"
+    },
+    "contact": {
+        "email": [
+            {
+                "address": "inebefa@hoefezur.ch",
+                "type": "other"
+            }
+        ],
+        "phone": [
+            {
+                "number": "06 14 11 91 92",
+                "type": "private"
+            },
+            {
+                "number": "06 16 97 75 25",
+                "type": "private"
+            }
+        ]
+    },
+    "crmInformation": {
+        "segmentation": "high",
+        "rating": "B",
+        "lastPhysicalContactDate": {
+            "$date": "2019-03-30T22:24:29.592Z"
+        },
+        "totalPhysicalContactsLastYearPeriod": 25,
+        "lastVirtualContactDate": {
+            "$date": "2010-04-20T20:45:05.600Z"
+        },
+        "totalVirtualContactsLastYearPeriod": 29,
+        "totalContactsYtd": 59
+    },
+    "accounts": [
+        {
+            "number": "755-55-9601",
+            "type": "account",
+            "balance": {
+                "$numberDecimal": "3878.82"
+            },
+            "description": "Tokepwav efuji."
+        },
+        {
+            "number": "991-88-7104",
+            "type": "account",
+            "balance": {
+                "$numberDecimal": "-332.39"
+            },
+            "description": "Eli vemoh."
+        },
+        {
+            "number": "316-99-2239",
+            "type": "account",
+            "balance": {
+                "$numberDecimal": "-7142.47"
+            },
+            "description": "Basgufe fo."
+        },
+        {
+            "number": "002-34-7625",
+            "type": "depot",
+            "balance": {
+                "$numberDecimal": "-787.8"
+            },
+            "description": "Urukonip pulgaz kil."
+        },
+        {
+            "number": "973-93-8335",
+            "type": "depot",
+            "balance": {
+                "$numberDecimal": "-5660.46"
+            },
+            "description": "Ifjaehu wi."
+        },
+        {
+            "number": "587-55-1196",
+            "type": "account",
+            "balance": {
+                "$numberDecimal": "1661.71"
+            },
+            "description": "Moj."
+        },
+        {
+            "number": "933-55-7561",
+            "type": "account",
+            "balance": {
+                "$numberDecimal": "3313.32"
+            },
+            "description": "Mim zi."
+        },
+        {
+            "number": "815-85-3195",
+            "type": "loan",
+            "balance": {
+                "$numberDecimal": "362.55"
+            },
+            "description": "Ire bak wud."
+        },
+        {
+            "number": "927-04-9623",
+            "type": "depot",
+            "balance": {
+                "$numberDecimal": "-5398.05"
+            },
+            "description": "Masahofi lonoalu."
+        },
+        {
+            "number": "880-89-6455",
+            "type": "account",
+            "balance": {
+                "$numberDecimal": "-5309.71"
+            },
+            "description": "Cec."
+        },
+        {
+            "number": "011-89-5492",
+            "type": "account",
+            "balance": {
+                "$numberDecimal": "-7598.9"
+            },
+            "description": "Ho."
+        },
+        {
+            "number": "027-44-6096",
+            "type": "depot",
+            "balance": {
+                "$numberDecimal": "-1001.62"
+            },
+            "description": "Baz."
+        },
+        {
+            "number": "988-05-9785",
+            "type": "depot",
+            "balance": {
+                "$numberDecimal": "-5951.31"
+            },
+            "description": "Pil buw vi."
+        },
+        {
+            "number": "476-44-5652",
+            "type": "account",
+            "balance": {
+                "$numberDecimal": "1593.69"
+            },
+            "description": "Poabaul zehti."
+        },
+        {
+            "number": "746-78-9197",
+            "type": "account",
+            "balance": {
+                "$numberDecimal": "9489.02"
+            },
+            "description": "Icdut."
+        },
+        {
+            "number": "685-15-9443",
+            "type": "loan",
+            "balance": {
+                "$numberDecimal": "-7544.7"
+            },
+            "description": "Ce wemruw."
+        }
+    ]
+}
