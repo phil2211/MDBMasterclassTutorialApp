@@ -1,6 +1,5 @@
 {
     "config_version": 20210101,
-    "app_id": "mycustomersgridapp-hwvgr",
     "name": "MyCustomersGridApp",
     "location": "DE-FF",
     "deployment_model": "LOCAL"

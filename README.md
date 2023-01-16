@@ -87,9 +87,9 @@ testdata/AtlasSearchDefinitions/customEnhanced.json
 cd ../../frontend
 npm install
 ```
-12. Copy the ``.env`` file to a new file called ``.env.local``
-13. Edit the ``.env.local`` file and paste your App-ID. You can find it by opening the "App Services" tab in Atlas and there opening the newly deployed "MyCustomersGridApp" 
-13. Start your frontend and login
+13. Copy the ``.env`` file to a new file called ``.env.local``
+14. Edit the ``.env.local`` file and paste your App-ID. You can find it by opening the "App Services" tab in Atlas and there opening the newly deployed "MyCustomersGridApp" 
+15. Start your frontend and login
 ```
 npm start
 ```
