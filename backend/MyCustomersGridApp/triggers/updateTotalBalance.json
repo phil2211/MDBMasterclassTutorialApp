@@ -11,10 +11,39 @@
         "collection": "customerSingleView",
         "service_name": "mongodb-atlas",
         "match": {
-            "updateDescription.updatedFields.totalBalance": {
-                "$exists": false
+            "$expr": {
+              "$in": [
+                "accountsbalance",
+                {
+                  "$map": {
+                    "input": {
+                      "$objectToArray": "$updateDescription.updatedFields"
+                    },
+                    "in": {
+                      "$concat": [
+                        {
+                          "$arrayElemAt": [
+                            {
+                              "$split": ["$$this.k", "."]
+                            },
+                            0
+                          ]
+                        },
+                        {
+                          "$arrayElemAt": [
+                            {
+                              "$split": ["$$this.k", "."]
+                            },
+                            2
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
             }
-        },
+          },
         "project": {},
         "full_document": true,
         "full_document_before_change": false,
