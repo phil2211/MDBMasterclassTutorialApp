@@ -1,23 +1,30 @@
 {
-    "name": "totalBalanceAsText",
+    "name": "customerHistory",
     "type": "DATABASE",
     "config": {
         "operation_types": [
             "INSERT",
-            "UPDATE",
-            "REPLACE"
+            "DELETE",
+            "REPLACE",
+            "UPDATE"
         ],
         "database": "MyCustomers",
         "collection": "customerSingleView",
         "service_name": "mongodb-atlas",
         "match": {
-            "updateDescription.updatedFields.totalBalance": {
-                "$exists": true
+            "updateDescription.updatedFields.revision": {
+                "$exists": false
+            },
+            "updateDescription.updatedFields.validFrom": {
+                "$exists": false
+            },
+            "updateDescription.updatedFields.originId": {
+                "$exists": false
             }
         },
         "project": {},
-        "full_document": false,
-        "full_document_before_change": false,
+        "full_document": true,
+        "full_document_before_change": true,
         "unordered": false,
         "skip_catchup_events": false,
         "tolerate_resume_errors": false
@@ -26,7 +33,7 @@
     "event_processors": {
         "FUNCTION": {
             "config": {
-                "function_name": "setBalanceAsString"
+                "function_name": "customerHistory"
             }
         }
     }

@@ -12,38 +12,48 @@
         "service_name": "mongodb-atlas",
         "match": {
             "$expr": {
-              "$in": [
-                "accountsbalance",
-                {
-                  "$map": {
-                    "input": {
-                      "$objectToArray": "$updateDescription.updatedFields"
-                    },
-                    "in": {
-                      "$concat": [
-                        {
-                          "$arrayElemAt": [
-                            {
-                              "$split": ["$$this.k", "."]
+                "$in": [
+                    "accountsbalance",
+                    {
+                        "$map": {
+                            "input": {
+                                "$objectToArray": "$updateDescription.updatedFields"
                             },
-                            0
-                          ]
-                        },
-                        {
-                          "$arrayElemAt": [
-                            {
-                              "$split": ["$$this.k", "."]
-                            },
-                            2
-                          ]
+                            "in": {
+                                "$concat": [
+                                    {
+                                        "$arrayElemAt": [
+                                            {
+                                                "$split": [
+                                                    "$$this.k",
+                                                    "."
+                                                ]
+                                            },
+                                            {
+                                                "$numberInt": "0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "$arrayElemAt": [
+                                            {
+                                                "$split": [
+                                                    "$$this.k",
+                                                    "."
+                                                ]
+                                            },
+                                            {
+                                                "$numberInt": "2"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
                         }
-                      ]
                     }
-                  }
-                }
-              ]
+                ]
             }
-          },
+        },
         "project": {},
         "full_document": true,
         "full_document_before_change": false,

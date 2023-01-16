@@ -1,27 +1,6 @@
 [
     {
-        "name": "updateAccountBalance",
-        "private": false
-    },
-    {
-        "name": "updateAge",
-        "private": true
-    },
-    {
-        "name": "updateTotalBalance",
-        "private": true,
-        "run_as_system": true
-    },
-    {
-        "name": "getGridData",
-        "private": false
-    },
-    {
-        "name": "getMultiaddressSearchStage",
-        "private": false
-    },
-    {
-        "name": "getEnhancedSearchStage",
+        "name": "getCustomEnhancedSearchStage",
         "private": false
     },
     {
@@ -29,20 +8,13 @@
         "private": false
     },
     {
-        "name": "getSearchStage",
+        "name": "authFunc",
         "private": false
     },
     {
-        "name": "getCustomEnhancedSearchStage",
-        "private": false
-    },
-    {
-        "name": "resetFunc",
-        "private": true
-    },
-    {
-        "name": "getEnhancedSearchStageFastCount",
-        "private": false
+        "name": "updateTotalBalance",
+        "private": true,
+        "run_as_system": true
     },
     {
         "name": "getGridDataFastCount",
@@ -54,29 +26,61 @@
         "disable_arg_logs": true
     },
     {
+        "name": "getSortStage",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "getMultiaddressSearchStage",
+        "private": false
+    },
+    {
         "name": "setBalanceAsString",
         "private": true
     },
     {
-        "name": "searchMetaTest",
-        "private": false
+        "name": "resetFunc",
+        "private": true
     },
     {
         "name": "getEnhancedSearchStageSlowSort",
         "private": false
     },
     {
-        "name": "getSortStage",
-        "private": false,
-        "disable_arg_logs": true
-    },
-    {
-        "name": "authFunc",
+        "name": "getSearchStage",
         "private": false
     },
     {
         "name": "test",
         "private": false,
         "disable_arg_logs": true
+    },
+    {
+        "name": "searchMetaTest",
+        "private": false
+    },
+    {
+        "name": "updateAge",
+        "private": true
+    },
+    {
+        "name": "getEnhancedSearchStageFastCount",
+        "private": false
+    },
+    {
+        "name": "updateAccountBalance",
+        "private": false
+    },
+    {
+        "name": "getEnhancedSearchStage",
+        "private": false
+    },
+    {
+        "name": "getGridData",
+        "private": false
+    },
+    {
+        "name": "customerHistory",
+        "private": true
     }
 ]
