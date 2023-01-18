@@ -28,21 +28,22 @@ For the latest version of the demo clone tha **main** branch and follow these in
 
 > Everything works on a Atlas Free Tier. No Credit Card needed
 
-1. Create an [Atlas](https://cloud.mongodb.com) account. If you are new to Atlas, please watch [Intro to MongoDB Atlas in 10 mins](https://youtu.be/xrc7dIO_tXk) to get you started
-2. Create a free cluster and name it MyCustomers
-3. Install [mgenerate](https://github.com/rueckstiess/mgeneratejs) 
+1. Clone this repo 
+2. Create an [Atlas](https://cloud.mongodb.com) account. If you are new to Atlas, please watch [Intro to MongoDB Atlas in 10 mins](https://youtu.be/xrc7dIO_tXk) to get you started
+3. Create a free cluster and name it MyCustomers
+4. Install [mgenerate](https://github.com/rueckstiess/mgeneratejs) 
 ```
 npm install -g mgeneratejs
 ```
-4. Install the [Realm-CLI](https://www.mongodb.com/docs/atlas/app-services/cli/)
+5. Install the [Realm-CLI](https://www.mongodb.com/docs/atlas/app-services/cli/)
 ```
 npm install -g mongodb-realm-cli
 ```
-5. Load testdata to your cluster using the *loadTestdata.sh* script. Run the following command with your username password and the clusterId from your new created cluster
+6. Load testdata to your cluster using the *loadTestdata.sh* script. Run the following command with your username password and the clusterId from your new created cluster
 ```
 sh testData/loadTestdata.sh <user> <password> <clusterId>
 ```
-6. Let the age field be calculated by using the following MongoDB query in the mongoshell (please replace clusterId and username with your values):
+7. Let the age field be calculated by using the following MongoDB query in the mongoshell (please replace clusterId and username with your values):
 ```bash
 mongosh "mongodb+srv://mycustomers.<clusterId>.mongodb.net/MyCustomers" --apiVersion 1 --username <username> --eval 'db.customerSingleView.updateMany(
     {},
@@ -63,33 +64,33 @@ mongosh "mongodb+srv://mycustomers.<clusterId>.mongodb.net/MyCustomers" --apiVer
     }]
   );'
   ```
-7. Create an API key for Atlas using the "Access Manager" in Atlas
-8. Login your realm-CLI using the generated API key
+8. Create an API key for Atlas using the "Access Manager" in Atlas
+9. Login your realm-CLI using the generated API key
 ```
 realm-cli login
 ```
-9. Import the backend code to Atlas using the realm-CLI
+10. Import the backend code to Atlas using the realm-CLI
 ```
 cd realmBackend/MyCustomersGridApp
 realm-cli push --include-package-json
 ```
-10. Create an App user
+11. Create an App user
 ```
 realm-cli users create --type email --email test@example.com --password Passw0rd
 ```
-11. Create an Atlas Search index using the content of the following file and name it "customEnhanced". 
+12. Create an Atlas Search index using the content of the following file
 ```
 testdata/AtlasSearchDefinitions/customEnhanced.json
 ```
 
-12. Install all dependencies for the frontend
+13. Install all dependencies for the frontend
 ```
 cd ../../frontend
 npm install
 ```
-13. Copy the ``.env`` file to a new file called ``.env.local``
-14. Edit the ``.env.local`` file and paste your App-ID. You can find it by opening the "App Services" tab in Atlas and there opening the newly deployed "MyCustomersGridApp" 
-15. Start your frontend and login
+14. Copy the ``.env`` file to a new file called ``.env.local``
+15. Edit the ``.env.local`` file and paste your App-ID. You can find it by opening the "App Services" tab in Atlas and there opening the newly deployed "MyCustomersGridApp" 
+16. Start your frontend and login
 ```
 npm start
 ```
