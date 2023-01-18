@@ -10,5 +10,5 @@ fi
 USER=$1
 PW=$2
 CLUSTERID=$3
-mgeneratejs -n 50000 < testData/customerData.json | mongoimport -u $USER -p $PW -c customerSingleView mongodb+srv://mycustomers.$CLUSTERID.mongodb.net/MyCustomers
-mgeneratejs -n 100 < testData/consultantData.json | mongoimport -u $USER -p $PW -c consultants mongodb+srv://mycustomers.$CLUSTERID.mongodb.net/MyCustomers
+mgeneratejs -n 20000 < testData/customerData.json | mongoimport -u $USER -p $PW -c customerSingleView mongodb+srv://mycustomers.$CLUSTERID.mongodb.net/MyCustomers
+#mgeneratejs -n 100 < testData/consultantData.json | mongoimport -u $USER -p $PW -c consultants mongodb+srv://mycustomers.$CLUSTERID.mongodb.net/MyCustomers
