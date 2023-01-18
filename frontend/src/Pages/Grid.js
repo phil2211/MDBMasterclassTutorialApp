@@ -85,18 +85,6 @@ const Grid = ({ client }) => {
         { field: "description" },
         { field: "type" },
         { field: "balance" },
-        {
-            field: "actions",
-            cellRenderer: BtnCellRenderer,
-            cellRendererParams: {
-                clicked: function (field, action) {
-                    let intBalance = parseInt(document.querySelector("#root > div.ag-theme-alpine > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-full-width-container > div > div > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-center-cols-clipper > div > div > div.ag-row-even.ag-row.ag-row-level-0.ag-row-position-absolute.ag-row-first.ag-row-focus > div:nth-child(4)").textContent);
-                    action === "deposit" ? intBalance += 100 : intBalance -= 100;
-                    updateAccount({ client, accountNumber: field, amount: action === "deposit" ? 100 : -100 })
-                    //console.log(document.querySelector("#root > div.ag-theme-alpine > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-full-width-container > div > div > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-center-cols-clipper > div > div > div.ag-row-even.ag-row.ag-row-level-0.ag-row-position-absolute.ag-row-first.ag-row-focus > div.ag-cell.ag-cell-not-inline-editing.ag-cell-normal-height.ag-cell-focus.ag-cell-value"));
-                    document.querySelector("#root > div.ag-theme-alpine > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-full-width-container > div > div > div > div > div.ag-root-wrapper-body.ag-focus-managed.ag-layout-normal > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-row-no-animation.ag-layout-normal > div.ag-center-cols-clipper > div > div > div.ag-row-even.ag-row.ag-row-level-0.ag-row-position-absolute.ag-row-first.ag-row-focus > div:nth-child(4)").textContent = intBalance.toString()
-              },
-            }}
     ]
 
     useEffect(() => {
