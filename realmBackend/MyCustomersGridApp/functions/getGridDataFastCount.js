@@ -21,7 +21,7 @@ exports = async ({startRow, endRow, sortModel, searchText}) => {
   
   agg.push({
     '$search': {
-      'index': 'customEnhanced', 
+      'index': 'default', 
       'facet': {
         operator, 
         'facets': {
