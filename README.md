@@ -64,33 +64,33 @@ mongosh "mongodb+srv://mycustomers.<clusterId>.mongodb.net/MyCustomers" --apiVer
     }]
   );'
   ```
-8. Create an API key for Atlas using the "Access Manager" in Atlas
-9. Login your realm-CLI using the generated API key
+8. Login your realm-CLI
 ```
 realm-cli login
 ```
-10. Import the backend code to Atlas using the realm-CLI
+This command will open a browser and direct you to the Access Manager in Atlas where you can create the necessary API Key.
+9. Import the backend code to Atlas using the realm-CLI
 ```
 cd realmBackend/MyCustomersGridApp
 realm-cli push --include-package-json
 ```
-11. Create an App user
+10. Create an App user
 ```
 realm-cli users create --type email --email test@example.com --password Passw0rd
 ```
-12. Create an Atlas Search index using the content of the following file
+11. Create an Atlas Search index using the content of the following file
 ```
 testdata/AtlasSearchDefinitions/customEnhanced.json
 ```
 
-13. Install all dependencies for the frontend
+12. Install all dependencies for the frontend
 ```
 cd ../../frontend
 npm install
 ```
-14. Copy the ``.env`` file to a new file called ``.env.local``
-15. Edit the ``.env.local`` file and paste your App-ID. You can find it by opening the "App Services" tab in Atlas and there opening the newly deployed "MyCustomersGridApp" 
-16. Start your frontend and login
+13. Copy the ``.env`` file to a new file called ``.env.local``
+14. Edit the ``.env.local`` file and paste your App-ID. You can find it by opening the "App Services" tab in Atlas and there opening the newly deployed "MyCustomersGridApp" 
+15. Start your frontend and login
 ```
 npm start
 ```
