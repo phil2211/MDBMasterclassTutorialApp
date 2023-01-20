@@ -1,4 +1,7 @@
 {
+  "collectionName": "customerSingleView",
+  "database": "MyCustomers",
+  "name": "default",
   "mappings": {
     "dynamic": false,
     "fields": {
