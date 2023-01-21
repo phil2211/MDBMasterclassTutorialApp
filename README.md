@@ -37,9 +37,7 @@ The following steps and features are available:
 13. Fast Count and Facets
 
 # How to have fun :-)
-For the latest version of the demo clone tha **main** branch and follow these instructions. 
-
-> Everything works on an Atlas Free Tier. No Credit Card needed
+> Everything works on an Atlas Free Tier. No Credit Card needed, free forever
 
 1. Clone this repo and go to the directory
 ```
