@@ -52,7 +52,7 @@ cd MDBMasterclassTutorialApp
 - [MongoDB Database Tools](https://www.mongodb.com/docs/database-tools/). 
 - [NodeJS](https://nodejs.org/)
 ---
-I use Homebrew to do this on MacOS. If you don't have Homebrew, please follow the very simple instructions on the [Hombrew](https://brew.sh/) website to install it. If you use Windows or Linux, please follow the installation instructions for each tool needed by following the links below. The command below will install the Mongo Shell, the Atlas CLI and NodeJS if you don't have it already. If you use Windows or Linux there are install instructions for each component when you just follow the links above.
+I use Homebrew to do this on MacOS. If you don't have Homebrew, please follow the very simple instructions on the [Hombrew](https://brew.sh/) website to install it. The command below will install all the tools mentioned above at once. If you use Windows or Linux there are install instructions for each component following the links above.
 ```
 brew tap mongodb/brew
 brew install mongodb-atlas-cli mongodb-database-tools node npm
