@@ -10,7 +10,11 @@ exports = ({ searchText, startRow, endRow, sortModel }) => {
            should: [
             {autocomplete: {
               query: tSearchText,
-              path: "lastName"
+              path: "lastName",
+              fuzzy: {
+                maxEdits: 1,
+                prefixLength: 1
+              }
             }},
             {autocomplete: {
               query: tSearchText,
