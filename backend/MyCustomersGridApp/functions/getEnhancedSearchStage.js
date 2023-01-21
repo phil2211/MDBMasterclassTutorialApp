@@ -7,7 +7,7 @@ exports = ({searchText, startRow, endRow, sortModel}) => {
   
   return [
     {$search: {
-       index: "customEnhanced",
+       index: "default",
        compound: {
          should: [
           {autocomplete: {

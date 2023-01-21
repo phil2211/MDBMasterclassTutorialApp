@@ -49,7 +49,7 @@ exports = ({ searchText, startRow, endRow, sortModel }) => {
   const search = []    
   search.push(
     {$search: {
-       index: "customEnhanced",
+       index: "default",
        compound: {
          must
        }

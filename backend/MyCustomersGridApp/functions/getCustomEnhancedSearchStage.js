@@ -7,7 +7,7 @@ exports = ({searchText, startRow, endRow}) => {
   
   agg.push(  {
    $search: {
-    index: 'customEnhanced',
+    index: 'default',
     compound: {
      should: [
       {

@@ -46,9 +46,10 @@ For the latest version of the demo clone tha **main** branch and follow these in
 git clone https://github.com/phil2211/MDBMasterclassTutorialApp.git && \
 cd MDBMasterclassTutorialApp
 ```
-2. Install [Atlas CLI](https://www.mongodb.com/tools/atlas-cli) and the MongoShell
+2. Install [Atlas CLI](https://www.mongodb.com/tools/atlas-cli) and the MongoShell. I use Homebrew to do this on MacOS. If you don't have Homebrew, please follow the very simple instructions on the [Hombrew](https://brew.sh/) website to install it. If you use Windows or Linux, please follow the installation instructions for each tool needed by following the links below. The command below will install the Mongo Shell, the Atlas CLI and NodeJS if you don't have it already.
 ```
-brew install mongodb-atlas-cli
+brew tap mongodb/brew
+brew install mongodb-atlas-cli mongodb-database-tools node npm
 ```
 - If you don't use Homebrew on MacOS you can find instructions for your OS following these links:
   - [Atlas CLI](https://www.mongodb.com/docs/atlas/cli/stable/install-atlas-cli/)
@@ -57,11 +58,11 @@ brew install mongodb-atlas-cli
 ```
 atlas completion zsh > $(brew --prefix)/share/zsh/site-functions/_atlas
 ```
-- Restart your shell to use it
 4. Install [mgenerate](https://github.com/rueckstiess/mgeneratejs) and the [Realm CLI](https://www.mongodb.com/docs/atlas/app-services/cli/)
 ```
 npm install -g mgeneratejs mongodb-realm-cli
 ```
+- **Restart your shell to use it**
 ---
 5. Create an [Atlas](https://cloud.mongodb.com) account. If you are new to Atlas, please watch [Intro to MongoDB Atlas in 10 mins](https://youtu.be/xrc7dIO_tXk) to get you started
 ```
@@ -73,6 +74,7 @@ atlas setup -P MDBMasterclass
 ```
 atlas auth login -P MDBMasterclass
 ```
+- **In both cases please interrupt the Atlas CLI to deploy your first free database by pressing CTRL+C.** There is actually a bug in the Atlas CLI not reacting on selecting No when you are asked.
 ---
 6. Create a new project and a free cluster named MyCustomers
 ```
@@ -119,7 +121,7 @@ realm-cli login --api-key $(cat AtlasAPIKeys.txt | grep "Public API Key" | awk '
 ```
 12. Import the backend code to Atlas using the realm-CLI
 ```
-realm-cli push --local "realmBackend/MyCustomersGridApp" --include-package-json -y --profile MDBMasterclass && \
+realm-cli push --local "backend/MyCustomersGridApp" --include-package-json -y --profile MDBMasterclass && \
 echo "REACT_APP_REALMAPP="$(realm-cli apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') > frontend/.env.local
 ```
 13. Create an App user
@@ -133,7 +135,7 @@ atlas clusters search indexes create -P MDBMasterclass -f "testData/AtlasSearchD
 
 15. Install all dependencies for the frontend
 ```
-cd ../../frontend
+cd frontend && \
 npm install
 ```
 16. Start your frontend and login

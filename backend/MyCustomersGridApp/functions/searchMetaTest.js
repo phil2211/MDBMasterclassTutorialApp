@@ -6,7 +6,7 @@ exports = async ({startRow, endRow}) => {
   
   agg.push({
     $search: {
-        index: 'customEnhanced',
+        index: 'default',
         range: {
             path: 'age',
             gte: 0,
