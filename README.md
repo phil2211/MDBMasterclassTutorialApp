@@ -52,9 +52,9 @@ cd MDBMasterclassTutorialApp
 - [MongoDB Database Tools](https://www.mongodb.com/docs/database-tools/). 
 - [NodeJS](https://nodejs.org/)
 ---
-I use Homebrew to do this on MacOS. If you don't have Homebrew, please follow the very simple instructions on the [Hombrew](https://brew.sh/) website to install it. The command below will install all the tools mentioned above at once. If you use Windows or Linux there are install instructions for each component following the links above.
+I use Homebrew to do this on MacOS. If you don't have Homebrew, please follow the very simple instructions on the [Hombrew](https://brew.sh/) website to install it. The command below will install all necessary tools at once. If you are using Windows or Linux, see the links above for installation instructions for each component.
 ```
-brew tap mongodb/brew
+brew tap mongodb/brew && \
 brew install mongodb-atlas-cli mongodb-database-tools node npm
 ```
 3. *(optional)* Generate the autocompletion script for your shell. Learn more following this [link](https://www.mongodb.com/docs/atlas/cli/stable/command/atlas-completion-bash/). Here the example for MacOS 
