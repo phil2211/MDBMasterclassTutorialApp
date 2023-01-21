@@ -46,15 +46,17 @@ For the latest version of the demo clone tha **main** branch and follow these in
 git clone https://github.com/phil2211/MDBMasterclassTutorialApp.git && \
 cd MDBMasterclassTutorialApp
 ```
-2. Install [Atlas CLI](https://www.mongodb.com/tools/atlas-cli), the [MongoShell](https://www.mongodb.com/docs/v4.4/mongo/) and the [MongoDB Database Tools](https://www.mongodb.com/docs/database-tools/). I use Homebrew to do this on MacOS. If you don't have Homebrew, please follow the very simple instructions on the [Hombrew](https://brew.sh/) website to install it. If you use Windows or Linux, please follow the installation instructions for each tool needed by following the links below. The command below will install the Mongo Shell, the Atlas CLI and NodeJS if you don't have it already.
+2. You need the following tools installed on your computer
+- [Atlas CLI](https://www.mongodb.com/tools/atlas-cli)
+- [MongoShell](https://www.mongodb.com/docs/v4.4/mongo/)
+- [MongoDB Database Tools](https://www.mongodb.com/docs/database-tools/). 
+- [NodeJS](https://nodejs.org/)
+---
+I use Homebrew to do this on MacOS. If you don't have Homebrew, please follow the very simple instructions on the [Hombrew](https://brew.sh/) website to install it. If you use Windows or Linux, please follow the installation instructions for each tool needed by following the links below. The command below will install the Mongo Shell, the Atlas CLI and NodeJS if you don't have it already. If you use Windows or Linux there are install instructions for each component when you just follow the links above.
 ```
 brew tap mongodb/brew
 brew install mongodb-atlas-cli mongodb-database-tools node npm
 ```
-- If you don't use Homebrew on MacOS you can find instructions for your OS following these links:
-  - [Atlas CLI](https://www.mongodb.com/docs/atlas/cli/stable/install-atlas-cli/)
-  - [Mongo Shell](https://www.mongodb.com/docs/mongodb-shell/install/)
-  - [MongoDB Database Tools](https://www.mongodb.com/docs/database-tools/#installation)
 3. *(optional)* Generate the autocompletion script for your shell. Learn more following this [link](https://www.mongodb.com/docs/atlas/cli/stable/command/atlas-completion-bash/). Here the example for MacOS 
 ```
 atlas completion zsh > $(brew --prefix)/share/zsh/site-functions/_atlas
