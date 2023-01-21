@@ -1,0 +1,72 @@
+{
+    "name": "updateTotalBalance",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "INSERT",
+            "UPDATE",
+            "REPLACE"
+        ],
+        "database": "MyCustomers",
+        "collection": "customerSingleView",
+        "service_name": "mongodb-atlas",
+        "match": {
+            "$expr": {
+                "$in": [
+                    "accountsbalance",
+                    {
+                        "$map": {
+                            "input": {
+                                "$objectToArray": "$updateDescription.updatedFields"
+                            },
+                            "in": {
+                                "$concat": [
+                                    {
+                                        "$arrayElemAt": [
+                                            {
+                                                "$split": [
+                                                    "$$this.k",
+                                                    "."
+                                                ]
+                                            },
+                                            {
+                                                "$numberInt": "0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "$arrayElemAt": [
+                                            {
+                                                "$split": [
+                                                    "$$this.k",
+                                                    "."
+                                                ]
+                                            },
+                                            {
+                                                "$numberInt": "2"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "project": {},
+        "full_document": true,
+        "full_document_before_change": false,
+        "unordered": true,
+        "skip_catchup_events": false,
+        "tolerate_resume_errors": false
+    },
+    "disabled": false,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "updateTotalBalance"
+            }
+        }
+    }
+}

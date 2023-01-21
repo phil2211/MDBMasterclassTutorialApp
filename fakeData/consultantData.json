@@ -1,7 +1,0 @@
-{
-    "_id": {"$inc": {"start": 1, "step": 1}},
-    "lastName": "$last",
-    "firstName": "$first",
-    "rating": {"$choose": {"from": ["junior", "professional", "senior", "key"], "weights": [1, 2, 1, 1]}},
-    "location": {"$coordinates": {"lat_lim": [45, 54], "long_lim": [-7, 20]}}
-}

@@ -1,0 +1,17 @@
+{
+    "name": "mongodb-atlas",
+    "type": "mongodb-atlas",
+    "config": {
+        "clusterName": "MyCustomers",
+        "namespacePreimageConfigs": [
+            {
+                "collectionName": "customerSingleView",
+                "dbName": "MyCustomers",
+                "recordPreimages": true
+            }
+        ],
+        "readPreference": "primary",
+        "wireProtocolEnabled": false
+    },
+    "version": 1
+}

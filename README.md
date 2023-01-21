@@ -1,7 +1,20 @@
 # Welcome to the MongoDB Atlas Demo App
 This is a MongoDB Atlas App Services demo which shows how to implement several concepts of the Atlas App Services in combination with the powerful lucene based Atlas Search feature.
 
-You can find a quick overview what you get by using the code in this repo by watching my presentation. [Click here for the video on YouTube](https://youtu.be/vCH4Z4-LS6M)
+## Some impressions of what you get
+### Pagination
+![Pagination](/assets/pagination.gif)
+
+### Cross Field Multi Match
+![Cross Field Multi Match](/assets/cross%20field%20multi%20match.gif)
+
+### Fuzzy Search
+![Fuzzy Search](/assets/fuzzy%20search.gif)
+
+### Live Update
+![Live Update](/assets/live%20update.gif)
+
+You can also find a quick overview by watching my presentation at MongoDB .local in Frankfurt. [Click here for the video on YouTube](https://youtu.be/vCH4Z4-LS6M)
 
 There is (still in german) a YouTube tutorial available which shows step by step how to build and use this app. You can find them [here](https://youtube.com/playlist?list=PLw_MyzE5EpxVOrsqs9SyCnl3exSkPm1TR). English speaking audience: Please use subtitle to follow the tutorial. English version is in production ;-) 
 
@@ -23,29 +36,63 @@ The following steps and features are available:
 12. Advanced Search
 13. Fast Count and Facets
 
-# How to install
+# How to have fun :-)
 For the latest version of the demo clone tha **main** branch and follow these instructions. 
 
-> Everything works on a Atlas Free Tier. No Credit Card needed
+> Everything works on an Atlas Free Tier. No Credit Card needed
 
-1. Clone this repo 
-2. Create an [Atlas](https://cloud.mongodb.com) account. If you are new to Atlas, please watch [Intro to MongoDB Atlas in 10 mins](https://youtu.be/xrc7dIO_tXk) to get you started
-3. Create a free cluster and name it MyCustomers
-4. Install [mgenerate](https://github.com/rueckstiess/mgeneratejs) 
+1. Clone this repo and go to the directory
 ```
-npm install -g mgeneratejs
+git clone https://github.com/phil2211/MDBMasterclassTutorialApp.git && \
+cd MDBMasterclassTutorialApp
 ```
-5. Install the [Realm-CLI](https://www.mongodb.com/docs/atlas/app-services/cli/)
+2. Install [Atlas CLI](https://www.mongodb.com/tools/atlas-cli) and the MongoShell. I use Homebrew to do this on MacOS. If you don't have Homebrew, please follow the very simple instructions on the [Hombrew](https://brew.sh/) website to install it. If you use Windows or Linux, please follow the installation instructions for each tool needed by following the links below. The command below will install the Mongo Shell, the Atlas CLI and NodeJS if you don't have it already.
 ```
-npm install -g mongodb-realm-cli
+brew tap mongodb/brew
+brew install mongodb-atlas-cli mongodb-database-tools node npm
 ```
-6. Load testdata to your cluster using the *loadTestdata.sh* script. Run the following command with your username password and the clusterId from your new created cluster
+- If you don't use Homebrew on MacOS you can find instructions for your OS following these links:
+  - [Atlas CLI](https://www.mongodb.com/docs/atlas/cli/stable/install-atlas-cli/)
+  - [Mongo Shell](https://www.mongodb.com/docs/mongodb-shell/install/)
+3. *(optional)* Generate the autocompletion script for your shell. Learn more following this [link](https://www.mongodb.com/docs/atlas/cli/stable/command/atlas-completion-bash/). Here the example for MacOS 
 ```
-sh testData/loadTestdata.sh <user> <password> <clusterId>
+atlas completion zsh > $(brew --prefix)/share/zsh/site-functions/_atlas
 ```
-7. Let the age field be calculated by using the following MongoDB query in the mongoshell (please replace clusterId and username with your values):
+4. Install [mgenerate](https://github.com/rueckstiess/mgeneratejs) and the [Realm CLI](https://www.mongodb.com/docs/atlas/app-services/cli/)
+```
+npm install -g mgeneratejs mongodb-realm-cli
+```
+- **Restart your shell to use it**
+---
+5. Create an [Atlas](https://cloud.mongodb.com) account. If you are new to Atlas, please watch [Intro to MongoDB Atlas in 10 mins](https://youtu.be/xrc7dIO_tXk) to get you started
+```
+atlas setup -P MDBMasterclass
+```
+**OR**
+
+5. If you already have an Atlas account, login to your Atlas account and choose your default project
+```
+atlas auth login -P MDBMasterclass
+```
+- **In both cases please interrupt the Atlas CLI to deploy your first free database by pressing CTRL+C.** There is actually a bug in the Atlas CLI not reacting on selecting No when you are asked.
+---
+6. Create a new project and a free cluster named MyCustomers
+```
+atlas projects create MDBMasterclass -P MDBMasterclass && \
+atlas config set -P MDBMasterclass project_id `atlas project ls | grep MDBMasterclass | awk '{ print $1 }'` && \
+atlas quickstart --skipMongosh --skipSampleData --provider AWS --region EU_CENTRAL_1 --tier M0 --username admin --password Passw0rd --accessListIp "0.0.0.0/0" --clusterName MyCustomers -P MDBMasterclass --force 
+```
+7. Wait until the new created cluster is ready. Check for the **state** to become **"IDLE"**
+```
+atlas cluster get MyCustomers -P MDBMasterclass
+```
+8. Load testdata to your cluster using the *loadTestdata.sh* script. Run the following command with your username password and the clusterId from your new created cluster
+```
+sh testData/loadTestdata.sh admin Passw0rd $(atlas cluster connectionstrings describe MyCustomers -P MDBMasterclass | grep "mongodb+srv" | awk -F. '{print $2}')
+```
+9. Pre-calculate the age field by using the following MongoDB query in the mongoshell
 ```bash
-mongosh "mongodb+srv://mycustomers.<clusterId>.mongodb.net/MyCustomers" --apiVersion 1 --username <username> --eval 'db.customerSingleView.updateMany(
+mongosh $(atlas cluster connectionstrings describe MyCustomers -P MDBMasterclass | grep "mongodb+srv")/MyCustomers --apiVersion 1 --username admin --password Passw0rd --eval 'db.customerSingleView.updateMany(
     {},
     [{
       $set:
@@ -63,34 +110,38 @@ mongosh "mongodb+srv://mycustomers.<clusterId>.mongodb.net/MyCustomers" --apiVer
       }
     }]
   );'
-  ```
-8. Login your realm-CLI
 ```
-realm-cli login
+10. Create Atlas API keys for the realm-CLI login
 ```
-This command will open a browser and direct you to the Access Manager in Atlas where you can create the necessary API Key.
-9. Import the backend code to Atlas using the realm-CLI
+atlas project apiKeys create --desc realm-cli --role GROUP_OWNER -P MDBMasterclass > AtlasAPIKeys.txt
 ```
-cd realmBackend/MyCustomersGridApp
-realm-cli push --include-package-json
+11. Login your realm-CLI using the new generated API-Key
 ```
-10. Create an App user
+realm-cli login --api-key $(cat AtlasAPIKeys.txt | grep "Public API Key" | awk '{ print $4 }') --private-api-key $(cat AtlasAPIKeys.txt | grep "Private API Key" | awk '{ print $4 }') -y --profile MDBMasterclass
 ```
-realm-cli users create --type email --email test@example.com --password Passw0rd
+12. Import the backend code to Atlas using the realm-CLI
 ```
-11. Create an Atlas Search index using the content of the following file
+realm-cli push --local "backend/MyCustomersGridApp" --include-package-json -y --profile MDBMasterclass && \
+echo "REACT_APP_REALMAPP="$(realm-cli apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') > frontend/.env.local
 ```
-testdata/AtlasSearchDefinitions/customEnhanced.json
+13. Create an App user
+```
+realm-cli users create --type email --email test@example.com --password Passw0rd --profile MDBMasterclass -a $(realm-cli apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}')
+```
+14. Create an Atlas Search index using the content of the following file
+```
+atlas clusters search indexes create -P MDBMasterclass -f "testData/AtlasSearchDefinitions/customEnhanced.json" --clusterName MyCustomers
 ```
 
-12. Install all dependencies for the frontend
+15. Install all dependencies for the frontend
 ```
-cd ../../frontend
+cd frontend && \
 npm install
 ```
-13. Copy the ``.env`` file to a new file called ``.env.local``
-14. Edit the ``.env.local`` file and paste your App-ID. You can find it by opening the "App Services" tab in Atlas and there opening the newly deployed "MyCustomersGridApp" 
-15. Start your frontend and login
+16. Start your frontend and login
 ```
 npm start
 ```
+17. Wait for your browser to show the [login page](http://localhost:3000) and log in using these credentials:
+- User: ``test@example.com``
+- Password: ``Passw0rd`` 

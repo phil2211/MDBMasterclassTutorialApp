@@ -1,0 +1,86 @@
+[
+    {
+        "name": "getCustomEnhancedSearchStage",
+        "private": false
+    },
+    {
+        "name": "getFilterStage",
+        "private": false
+    },
+    {
+        "name": "authFunc",
+        "private": false
+    },
+    {
+        "name": "updateTotalBalance",
+        "private": true,
+        "run_as_system": true
+    },
+    {
+        "name": "getGridDataFastCount",
+        "private": false
+    },
+    {
+        "name": "getSearchSortModel",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "getSortStage",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "getMultiaddressSearchStage",
+        "private": false
+    },
+    {
+        "name": "setBalanceAsString",
+        "private": true
+    },
+    {
+        "name": "resetFunc",
+        "private": true
+    },
+    {
+        "name": "getEnhancedSearchStageSlowSort",
+        "private": false
+    },
+    {
+        "name": "getSearchStage",
+        "private": false
+    },
+    {
+        "name": "test",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "searchMetaTest",
+        "private": false
+    },
+    {
+        "name": "updateAge",
+        "private": true
+    },
+    {
+        "name": "getEnhancedSearchStageFastCount",
+        "private": false
+    },
+    {
+        "name": "updateAccountBalance",
+        "private": false
+    },
+    {
+        "name": "getEnhancedSearchStage",
+        "private": false
+    },
+    {
+        "name": "getGridData",
+        "private": false
+    },
+    {
+        "name": "customerHistory",
+        "private": true
+    }
+]

@@ -84,7 +84,7 @@ const Grid = ({ client }) => {
         { field: "number" },
         { field: "description" },
         { field: "type" },
-        { field: "balance" },
+        { field: "balance" }
     ]
 
     useEffect(() => {
