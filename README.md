@@ -91,13 +91,14 @@ atlas cluster get MyCustomers -P MDBMasterclass
 ```
 sh testData/loadTestdata.sh admin Passw0rd $(atlas cluster connectionstrings describe MyCustomers -P MDBMasterclass | grep "mongodb+srv" | awk -F. '{print $2}')
 ```
-9. Pre-calculate the age field by using the following MongoDB query in the mongoshell
+9. Pre-calculate the age and totalBalance field by using the following MongoDB query in the mongoshell
 ```bash
 mongosh $(atlas cluster connectionstrings describe MyCustomers -P MDBMasterclass | grep "mongodb+srv")/MyCustomers --apiVersion 1 --username admin --password Passw0rd --eval 'db.customerSingleView.updateMany(
     {},
     [{
       $set:
       {
+        "totalBalance": {"$sum": "$accounts.balance"},
         "age": {
             "$subtract": [
                 {"$subtract": [{"$year": "$$NOW"}, {"$year": "$birthdate"}]},
@@ -120,7 +121,7 @@ atlas project apiKeys create --desc realm-cli --role GROUP_OWNER -P MDBMastercla
 ```
 realm-cli login --api-key $(cat AtlasAPIKeys.txt | grep "Public API Key" | awk '{ print $4 }') --private-api-key $(cat AtlasAPIKeys.txt | grep "Private API Key" | awk '{ print $4 }') -y --profile MDBMasterclass
 ```
-12. Import the backend code to Atlas using the realm-CLI
+12. Import the backend code to Atlas using the realm-CLI (Please select MDBMasterclass as target project when prompted)
 ```
 realm-cli push --local "backend/MyCustomersGridApp" --include-package-json -y --profile MDBMasterclass && \
 echo "REACT_APP_REALMAPP="$(realm-cli apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') > frontend/.env.local
