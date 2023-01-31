@@ -44,7 +44,8 @@ The following steps and features are available:
 git clone https://github.com/phil2211/MDBMasterclassTutorialApp.git && \
 cd MDBMasterclassTutorialApp
 ```
-2. You need the following tools installed on your computer
+2. You need the following prerequisits met to follow along
+- [MongoDB Atlas Account](https://cloud.mongodb.com) (Free account available, no credit card needed)
 - [Atlas CLI](https://www.mongodb.com/tools/atlas-cli)
 - [MongoShell](https://www.mongodb.com/docs/v4.4/mongo/)
 - [MongoDB Database Tools](https://www.mongodb.com/docs/database-tools/). 
@@ -64,22 +65,16 @@ atlas completion zsh > $(brew --prefix)/share/zsh/site-functions/_atlas
 npm install -g mgeneratejs mongodb-realm-cli
 ```
 - **Restart your shell to use it**
+---
 
 > ***You can now follow the next steps manually or you just can execute the install.sh script to setup everything automatically***
 
 ---
-5. Create an [Atlas](https://cloud.mongodb.com) account. If you are new to Atlas, please watch [Intro to MongoDB Atlas in 10 mins](https://youtu.be/xrc7dIO_tXk) to get you started
-```
-atlas setup -P MDBMasterclass
-```
-**OR**
 
-5. If you already have an Atlas account, login to your Atlas account and choose your default project
+5. Login to your Atlas account and choose your default project
 ```
 atlas auth login -P MDBMasterclass
 ```
-- **In both cases please interrupt the Atlas CLI to deploy your first free database by pressing CTRL+C.** There is actually a bug in the Atlas CLI not reacting on selecting No when you are asked.
----
 
 6. Create a new project and a free cluster named MyCustomers
 ```
