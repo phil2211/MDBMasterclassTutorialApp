@@ -64,6 +64,9 @@ atlas completion zsh > $(brew --prefix)/share/zsh/site-functions/_atlas
 npm install -g mgeneratejs mongodb-realm-cli
 ```
 - **Restart your shell to use it**
+
+> ***You can now follow the next steps manually or you just can execute the install.sh script to setup everything automatically***
+
 ---
 5. Create an [Atlas](https://cloud.mongodb.com) account. If you are new to Atlas, please watch [Intro to MongoDB Atlas in 10 mins](https://youtu.be/xrc7dIO_tXk) to get you started
 ```
@@ -77,7 +80,6 @@ atlas auth login -P MDBMasterclass
 ```
 - **In both cases please interrupt the Atlas CLI to deploy your first free database by pressing CTRL+C.** There is actually a bug in the Atlas CLI not reacting on selecting No when you are asked.
 ---
-> You can now follow the next steps manually or you just can execute the install.sh script to setup everything automatically
 
 6. Create a new project and a free cluster named MyCustomers
 ```
