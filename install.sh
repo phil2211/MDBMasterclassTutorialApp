@@ -23,6 +23,12 @@ then
     exit
 fi
 
+if ! command -v mgeneratejs &> /dev/null
+then
+    echo "mgeneratejs could not be found, please install it"
+    exit
+fi
+
 #Create Atlas Project
 atlas auth login -P MDBMasterclass && \
 atlas projects create MDBMasterclass -P MDBMasterclass && \
