@@ -1,3 +1,29 @@
+#Check all dependencies
+if ! command -v atlas &> /dev/null
+then
+    echo "atlas could not be found, please install it"
+    exit
+fi
+
+if ! command -v mongosh &> /dev/null
+then
+    echo "mongosh could not be found, please install it"
+    exit
+fi
+
+if ! command -v realm-cli &> /dev/null
+then
+    echo "realm-cli could not be found, please install it"
+    exit
+fi
+
+if ! command -v npm &> /dev/null
+then
+    echo "npm could not be found, please install it"
+    exit
+fi
+
+#Create Atlas Project
 atlas auth login -P MDBMasterclass && \
 atlas projects create MDBMasterclass -P MDBMasterclass && \
 atlas config set -P MDBMasterclass project_id `atlas project ls | grep MDBMasterclass | awk '{ print $1 }'` && \
