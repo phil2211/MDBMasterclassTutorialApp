@@ -1,0 +1,1 @@
+node updateAccounts.js "--clusterId=$(atlas cluster connectionstrings describe MyCustomers -P MDBMasterclass | grep "mongodb+srv" | awk -F. '{print $2}')" --db=MyCustomers --collection=customerSingleView
