@@ -5,13 +5,12 @@ import TextInput from "@leafygreen-ui/text-input";
 import { debounce, forEach, get } from "lodash";
 import { useRealmApp } from "../RealmApp";
 import Header from "../Components/Header";
-import { createServerSideDatasource, updateAccount } from "../lib/graphql/gridDatasourse";
+import { createServerSideDatasource } from "../lib/graphql/gridDatasource";
 import apolloClientConsumer from "../lib/graphql/apolloClientConsumer";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import "ag-grid-enterprise";
-import { BSON } from "realm-web";
 
 const formatCurrency = (params) => {
     return new Intl.NumberFormat('de-DE', {style: 'currency', currency: 'EUR'}).format(params.value);
@@ -32,6 +31,7 @@ const Grid = ({ client }) => {
     const dbSetSearchText = debounce(setSearchText, 500);
     
     const [columnDefs] = useState([
+        { field: "revision"},
         { field: "customerId", cellRenderer: "agGroupCellRenderer" },
         { field: "lastName" },
         { field: "firstName" },

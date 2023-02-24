@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { forEach } from "lodash";
 
 export const updateAccount = ({ client, accountNumber, amount }) => {
   const query = {
@@ -34,13 +33,24 @@ export const createServerSideDatasource = ({ client, searchText }) => {
         const { startRow, endRow, sortModel } = request;
             const query = { 
                 query: gql`
-                query gridDataWithInput($queryInput:GridQueryModel) { 
-                  getGridData(input:$queryInput) {
+                query (
+                  $startRow: Int,
+                  $endRow: Int,
+                  $sortModel: [GridQueryModelSortModel],
+                  $searchText: String
+                ) { 
+                  getGridData(input: {
+                    startRow: $startRow,
+                    endRow: $endRow,
+                    sortModel: $sortModel,
+                    searchText: $searchText
+                  }) {
                       lastRow
                       query
                       rows {
                         _id
                         age
+                        revision
                         customerId
                         firstName
                         lastName
@@ -65,12 +75,10 @@ export const createServerSideDatasource = ({ client, searchText }) => {
                   }
                 `,
               variables: {
-                "queryInput": {
-                    startRow,
-                    endRow,
-                    sortModel,
-                    searchText
-                  }
+                  startRow,
+                  endRow,
+                  sortModel,
+                  searchText
                 }
             };
             client.query(query)

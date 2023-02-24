@@ -3,7 +3,6 @@
     "type": "DATABASE",
     "config": {
         "operation_types": [
-            "INSERT",
             "DELETE",
             "REPLACE",
             "UPDATE"
