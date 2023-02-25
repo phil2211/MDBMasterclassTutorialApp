@@ -48,6 +48,9 @@
                         "_id": {
                             "bsonType": "objectId"
                         },
+                        "revision": {
+                            "bsonType": "int"
+                        },
                         "accounts": {
                             "bsonType": "array",
                             "items": {
