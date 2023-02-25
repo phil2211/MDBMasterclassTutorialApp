@@ -60,5 +60,5 @@ realm-cli login --api-key $(cat AtlasAPIKeys.txt | grep "Public API Key" | awk '
 realm-cli push --local "backend/MyCustomersGridApp" --include-package-json -y --profile MDBMasterclass && \
 echo "REACT_APP_REALMAPP="$(realm-cli apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') > frontend/.env.local && \
 realm-cli users create --type email --email test@example.com --password Passw0rd --profile MDBMasterclass -a $(realm-cli apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') && \
-echo "Please go to http://localhost:3000 and login with user: test@example.com and password: Passw0rd"
+echo "Please go to http://localhost:3000 and login with user: test@example.com and password: Passw0rd" && \
 cd frontend && npm install && npm start
