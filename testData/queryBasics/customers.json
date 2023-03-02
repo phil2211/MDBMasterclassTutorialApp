@@ -1,0 +1,11 @@
+{
+    "customerId": "$cpf",
+    "lastName": "$last",
+    "firstName": "$first",
+    "annualSpend": {"$numberDecimal": {"min": 0, "max": 100000, "decimals": 2}},
+    "address": {
+        "street": "$street",
+        "city": {"$choose": {"from": ["Bern", "Zürich", "Basel"], "weights": [1,1,1]}}
+
+    }
+}

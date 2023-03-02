@@ -1,0 +1,17 @@
+use("TheCompany");
+
+const pipeline = [
+  { $unwind: "$address" },
+  { $match: { "address.location": "home" }},
+  { $group: {
+      _id: "$address.country",
+      totalSpend: { $sum: "$annualSpend" },
+      averageSpend: { $avg: "$annualSpend" },
+      maximumSpend: { $max: "$annualSpend" },
+      customers: { $sum: 1 }
+  }},
+  { $sort: {totalSpend: -1 }},
+];
+
+//db.customers.aggregate(pipeline);
+db.customers.explain("executionStats").aggregate(pipeline);

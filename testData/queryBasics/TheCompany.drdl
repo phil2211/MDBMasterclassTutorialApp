@@ -1,0 +1,63 @@
+schema:
+- db: TheCompany
+  tables:
+  - table: customers
+    collection: customers
+    pipeline: []
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: objectid
+    - Name: annualSpend
+      MongoType: bson.Decimal128
+      SqlName: annualSpend
+      SqlType: decimal
+    - Name: customerId
+      MongoType: string
+      SqlName: customerId
+      SqlType: varchar
+    - Name: firstName
+      MongoType: string
+      SqlName: firstName
+      SqlType: varchar
+    - Name: lastName
+      MongoType: string
+      SqlName: lastName
+      SqlType: varchar
+  - table: customers_address
+    collection: customers
+    pipeline:
+    - $unwind:
+        includeArrayIndex: address_idx
+        path: $address
+        preserveNullAndEmptyArrays: false
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: objectid
+    - Name: address.city
+      MongoType: string
+      SqlName: address.city
+      SqlType: varchar
+    - Name: address.country
+      MongoType: string
+      SqlName: address.country
+      SqlType: varchar
+    - Name: address.location
+      MongoType: string
+      SqlName: address.location
+      SqlType: varchar
+    - Name: address.street
+      MongoType: string
+      SqlName: address.street
+      SqlType: varchar
+    - Name: address.zipCode
+      MongoType: string
+      SqlName: address.zipCode
+      SqlType: varchar
+    - Name: address_idx
+      MongoType: int
+      SqlName: address_idx
+      SqlType: int

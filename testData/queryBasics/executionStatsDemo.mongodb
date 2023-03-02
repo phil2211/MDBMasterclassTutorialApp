@@ -1,0 +1,62 @@
+use("TheCompany");
+//clean up all indexes
+db.customers.dropIndexes();
+
+const exp = db.customers.explain();
+const expRun = db.customers.explain("executionStats");
+const expVerbose = db.customers.explain("allPlansExecution");
+
+//#1 simple find
+db.customers.find(
+  { "address.city": "Bern", "lastName": "Meier" }
+);
+
+//#2 create index on lastName
+db.customers.createIndex({ "lastName": 1 });
+
+//#3 find with index explain ratio on docs examined vs docs returned
+db.customers.find(
+  { "address.city": "Bern", "lastName": "Meier" }
+);
+
+//#4 create index on city and lastName
+db.customers.createIndex({ "address.city": 1, "lastName": 1 });
+
+//#5 find with index explain ratio on docs examined vs docs returned
+db.customers.find(
+  { "address.city": "Bern", "lastName": "Meier" }
+);
+
+//#6 sort on totalSpend
+db.customers.find(
+  { "address.city": "Bern", "lastName": "Meier" }
+).sort({ "totalSpend": -1 });
+
+//#7 show execution plan with sort stage
+db.customers.find(
+  { "address.city": "Bern", "lastName": "Meier" }
+).sort({ "totalSpend": -1 });
+
+//#8 create index on lastName, city and totalSpend
+db.customers.createIndex({ "lastName": 1, "address.city": 1, "totalSpend": -1 });
+
+//#9 find with index explain ratio on docs examined vs docs returned
+db.customers.find(
+  { "address.city": "Bern", "lastName": "Meier" }
+).sort({ "totalSpend": -1 });
+
+const pipeline = [
+  { $unwind: "$address" },
+  { $match: { "address.location": "home" }},
+  { $group: {
+      _id: "$address.country",
+      totalSpend: { $sum: "$annualSpend" },
+      averageSpend: { $avg: "$annualSpend" },
+      maximumSpend: { $max: "$annualSpend" },
+      customers: { $sum: 1 }
+  }},
+  { $sort: {totalSpend: -1 }},
+];
+
+//db.customers.aggregate(pipeline);
+db.customers.explain("executionStats").aggregate(pipeline);
