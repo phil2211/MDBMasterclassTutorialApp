@@ -8,7 +8,7 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 console.log(argv);
 
 // initiate mongo client
-const client = new MongoClient(argv.uri, {
+const client = new MongoClient(`mongodb+srv://admin:Passw0rd@mycustomers.${argv.clusterId}.mongodb.net`, {
     useNewUrlParser: true
 });
 
