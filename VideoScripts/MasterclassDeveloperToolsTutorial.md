@@ -43,11 +43,11 @@
 - Index Management
     - Just show the indexes and how to create them
 - Exporting / Importing Data 
-    - Create new Database MyCustomers
-    - Create Collection Customers
+    - Create new Database ```MyCustomers```
+    - Create Collection ```Customers```
     - Import customers.json
     - Show Data
-    - Create Collection crmInformation
+    - Create Collection ```crmInformation```
     - Import crmInformation.csv (change _id to ObjectID)
 - Aggregation Pipeline
     - Build crmInformation merge pipeline
@@ -122,10 +122,29 @@ Create new validation on ```sample_analytics``` ```customers``` collection
 - Show how to connect to the database
 - Show how to use the shell to connect to the database
 - Show basic commands like show dbs, show collections, use, db, db.help()
-- Show how to insert a document
 - Show how to find a document
-- Show how to update a document
-- Show how to delete a document
+- Run age and totalBalance update script
+```Javascript
+db.Customers.updateMany(
+    {},
+    [{
+      $set:
+      {
+        "totalBalance": {"$sum": "$accounts.balance"},
+        "age": {
+            "$subtract": [
+                {"$subtract": [{"$year": "$$NOW"}, {"$year": "$birthdate"}]},
+                {"$cond": [
+                    {"$gt": [0, {"$subtract": [{"$dayOfYear": "$$NOW"},{"$dayOfYear": "$birthdate"}]}]},
+                    1,
+                    0
+                ]}
+            ]
+        }
+      }
+    }]
+);
+```
 - Explain Anonymization Use Case. We identified field names containing CID using compass schema analysis. Now we want to replace the content of all fields in the cid array with the text "REDACTED"
 
 ```Javascript
@@ -135,7 +154,7 @@ const cid=["lastName", "firstName", "street", "address", "number", "description"
 // define recursive function to replace fields
 const replace = (doc, cid) => {
   for (const key in doc) {
-    if (cid.includes(key)) {
+    if (cid.includes(key) && typeof doc[key] === "string") {
       doc[key] = "REDACTED"
     } else if (typeof doc[key] === "object") {
       doc[key] = replace(doc[key], cid)
@@ -147,7 +166,7 @@ const replace = (doc, cid) => {
 // replace content of all fields in the cid array with the text "REDACTED"
 db.Customers.find().forEach((doc) => {
   doc = replace(doc, cid);
-  print(`Replacing ${doc._id}`);
+  print(`Redacting ${doc._id}`);
   db.Customers.replaceOne({_id: doc._id}, doc)
 })
 ```
@@ -156,8 +175,54 @@ db.Customers.find().forEach((doc) => {
 - Show slide what is MongoDB for VS Code
 - Show how to install the extension
 - Show how to connect to the database
+- Show how to browse the database
+
+- Show how to build an aggregation pipeline using co pilot
+```JSON
+use('MyCustomers');
+
+db.Customers.findOne();
+
+/* create a list of all Customers 
+with an age greater than 30 and a total 
+totalBalance greater than 1000.
+Then group the results by profession 
+and sort it by the highest count */
+
+
+/* Add the age as integer in years of all Customers based
+on their birthdate and the current date. Take into consideration
+the day of the year of the effective birthdate. 
+Sort the results by age in descending order and 
+project only profession and age */
+
+```
 
 # Atlas CLI
 - Show slide what is Atlas CLI
 - Show how to install the CLI
+- Login to Atlas using CLI
+```atlas auth login -P tutorial```
+- Show how to create a project
 
+```atlas projects create MyNewProject -P tutorial```
+- Set the projectID
+
+```atlas config set -P tutorial project_id $(atlas project ls -P tutorial | grep MyNewProject | awk '{ print $1 }')```
+- Show how to create a cluster
+
+```atlas cluster create MyNewCluster --region=EU_CENTRAL_1 --tier M0 --provider AWS -P tutorial```
+- get cluster status
+
+```atlas cluster get MyNewCluster -P tutorial```
+- Show how to create a database user
+
+```atlas dbusers create -u testuser -p Passw0rd --role atlasAdmin -P tutorial```
+- Show hot to set firewall
+
+```atlas accessList create --currentIp -P tutorial```
+- Show how to get the connection string
+
+```atlas cluster connectionStrings describe MyNewCluster -P tutorial```
+
+Describe how it all works together by showing the install.sh script
