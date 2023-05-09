@@ -32,7 +32,7 @@ fi
 #Create Atlas Project
 atlas auth login -P MDBMasterclass && \
 atlas projects create MDBMasterclass -P MDBMasterclass && \
-atlas config set -P MDBMasterclass project_id `atlas project ls | grep MDBMasterclass | awk '{ print $1 }'` && \
+atlas config set -P MDBMasterclass project_id `atlas project ls -P MDBMasterclass | grep MDBMasterclass | awk '{ print $1 }'` && \
 atlas quickstart --skipMongosh --skipSampleData --provider AWS --region EU_CENTRAL_1 --tier M0 --username admin --password Passw0rd --accessListIp "0.0.0.0/0" --clusterName MyCustomers -P MDBMasterclass --force && \
 sh testData/loadTestdata.sh admin Passw0rd $(atlas cluster connectionstrings describe MyCustomers -P MDBMasterclass | grep "mongodb+srv" | awk -F. '{print $2}') && \
 mongosh $(atlas cluster connectionstrings describe MyCustomers -P MDBMasterclass | grep "mongodb+srv")/MyCustomers --apiVersion 1 --username admin --password Passw0rd --eval 'db.customerSingleView.updateMany(
