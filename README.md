@@ -79,7 +79,7 @@ atlas auth login -P MDBMasterclass
 6. Create a new project and a free cluster named MyCustomers
 ```
 atlas projects create MDBMasterclass -P MDBMasterclass && \
-atlas config set -P MDBMasterclass project_id `atlas project ls | grep MDBMasterclass | awk '{ print $1 }'` && \
+atlas config set -P MDBMasterclass project_id `atlas -P MDBMasterclass project ls | grep MDBMasterclass | awk '{ print $1 }'` && \
 atlas quickstart --skipMongosh --skipSampleData --provider AWS --region EU_CENTRAL_1 --tier M0 --username admin --password Passw0rd --accessListIp "0.0.0.0/0" --clusterName MyCustomers -P MDBMasterclass --force 
 ```
 7. Wait until the new created cluster is ready. Check for the **state** to become **"IDLE"**
