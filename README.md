@@ -60,9 +60,9 @@ brew install mongodb-atlas-cli mongodb-database-tools node npm
 ```
 atlas completion zsh > $(brew --prefix)/share/zsh/site-functions/_atlas
 ```
-4. Install [mgenerate](https://github.com/rueckstiess/mgeneratejs) and the [Realm CLI](https://www.mongodb.com/docs/atlas/app-services/cli/)
+4. Install [mgenerate](https://github.com/rueckstiess/mgeneratejs) and the [App Services CLI](https://www.mongodb.com/docs/atlas/app-services/cli/)
 ```
-npm install -g mgeneratejs mongodb-realm-cli
+npm install -g mgeneratejs atlas-app-services-cli
 ```
 - **Restart your shell to use it**
 ---
@@ -112,22 +112,22 @@ mongosh $(atlas cluster connectionstrings describe MyCustomers -P MDBMasterclass
     }]
   );'
 ```
-10. Create Atlas API keys for the realm-CLI login
+10. Create Atlas API keys for the appservices login
 ```
-atlas project apiKeys create --desc realm-cli --role GROUP_OWNER -P MDBMasterclass > AtlasAPIKeys.txt
+atlas project apiKeys create --desc appservices --role GROUP_OWNER -P MDBMasterclass > AtlasAPIKeys.txt
 ```
-11. Login your realm-CLI using the new generated API-Key
+11. Login your appservices using the new generated API-Key
 ```
-realm-cli login --api-key $(cat AtlasAPIKeys.txt | grep "Public API Key" | awk '{ print $4 }') --private-api-key $(cat AtlasAPIKeys.txt | grep "Private API Key" | awk '{ print $4 }') -y --profile MDBMasterclass
+appservices login --api-key $(cat AtlasAPIKeys.txt | grep "Public API Key" | awk '{ print $4 }') --private-api-key $(cat AtlasAPIKeys.txt | grep "Private API Key" | awk '{ print $4 }') -y --profile MDBMasterclass
 ```
-12. Import the backend code to Atlas using the realm-CLI (Please select MDBMasterclass as target project when prompted)
+12. Import the backend code to Atlas using the appservices (Please select MDBMasterclass as target project when prompted)
 ```
-realm-cli push --local "backend/MyCustomersGridApp" --include-package-json -y --profile MDBMasterclass && \
-echo "REACT_APP_REALMAPP="$(realm-cli apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') > frontend/.env.local
+appservices push --local "backend/MyCustomersGridApp" --include-package-json -y --profile MDBMasterclass && \
+echo "REACT_APP_REALMAPP="$(appservices apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') > frontend/.env.local
 ```
 13. Create an App user
 ```
-realm-cli users create --type email --email test@example.com --password Passw0rd --profile MDBMasterclass -a $(realm-cli apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}')
+appservices users create --type email --email test@example.com --password Passw0rd --profile MDBMasterclass -a $(appservices apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}')
 ```
 14. Create an Atlas Search index using the content of the following file
 ```

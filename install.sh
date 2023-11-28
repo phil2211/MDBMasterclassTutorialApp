@@ -11,9 +11,9 @@ then
     exit
 fi
 
-if ! command -v realm-cli &> /dev/null
+if ! command -v appservices &> /dev/null
 then
-    echo "realm-cli could not be found, please install it"
+    echo "appservices could not be found, please install it"
     exit
 fi
 
@@ -55,10 +55,10 @@ mongosh $(atlas cluster connectionstrings describe MyCustomers -P MDBMasterclass
     }]
   );' && \
 atlas clusters search indexes create -P MDBMasterclass -f "testData/AtlasSearchDefinitions/customEnhanced.json" --clusterName MyCustomers && \
-atlas project apiKeys create --desc realm-cli --role GROUP_OWNER -P MDBMasterclass > AtlasAPIKeys.txt && \
-realm-cli login --api-key $(cat AtlasAPIKeys.txt | grep "Public API Key" | awk '{ print $4 }') --private-api-key $(cat AtlasAPIKeys.txt | grep "Private API Key" | awk '{ print $4 }') -y --profile MDBMasterclass && \
-realm-cli push --local "backend/MyCustomersGridApp" --include-package-json -y --profile MDBMasterclass && \
-echo "REACT_APP_REALMAPP="$(realm-cli apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') > frontend/.env.local && \
-realm-cli users create --type email --email test@example.com --password Passw0rd --profile MDBMasterclass -a $(realm-cli apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') && \
+atlas project apiKeys create --desc appservices --role GROUP_OWNER -P MDBMasterclass > AtlasAPIKeys.txt && \
+appservices login --api-key $(cat AtlasAPIKeys.txt | grep "Public API Key" | awk '{ print $4 }') --private-api-key $(cat AtlasAPIKeys.txt | grep "Private API Key" | awk '{ print $4 }') -y --profile MDBMasterclass && \
+appservices push --local "backend/MyCustomersGridApp" --include-package-json -y --profile MDBMasterclass && \
+echo "REACT_APP_REALMAPP="$(appservices apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') > frontend/.env.local && \
+appservices users create --type email --email test@example.com --password Passw0rd --profile MDBMasterclass -a $(appservices apps list --profile MDBMasterclass | grep mycustomersgridapp | awk '{print $1}') && \
 echo "Please go to http://localhost:3000 and login with user: test@example.com and password: Passw0rd" && \
 cd frontend && npm install && npm start

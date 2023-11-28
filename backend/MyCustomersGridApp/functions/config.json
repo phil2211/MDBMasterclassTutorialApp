@@ -35,10 +35,6 @@
         "private": false
     },
     {
-        "name": "setBalanceAsString",
-        "private": true
-    },
-    {
         "name": "resetFunc",
         "private": true
     },

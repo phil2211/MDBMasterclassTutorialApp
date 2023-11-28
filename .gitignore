@@ -18,6 +18,7 @@ yarn-error.log# See https://help.github.com/articles/ignoring-files/ for more ab
 .env.development.local
 .env.test.local
 .env.production.local
+.mdb
 
 npm-debug.log*
 yarn-debug.log*
