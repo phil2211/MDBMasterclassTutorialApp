@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.5.10",
     "@emotion/react": "^11.8.1",
     "@leafygreen-ui/button": "^13.0.1",
     "@leafygreen-ui/leafygreen-provider": "^2.3.5",

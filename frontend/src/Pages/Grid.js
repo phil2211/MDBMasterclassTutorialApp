@@ -5,13 +5,11 @@ import TextInput from "@leafygreen-ui/text-input";
 import { debounce, forEach, get } from "lodash";
 import { useRealmApp } from "../RealmApp";
 import Header from "../Components/Header";
-import { createServerSideDatasource, updateAccount } from "../lib/graphql/gridDatasourse";
-import apolloClientConsumer from "../lib/graphql/apolloClientConsumer";
+import { createServerSideDatasource } from "../lib/graphql/gridDatasourse";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import "ag-grid-enterprise";
-import { BSON } from "realm-web";
 
 const formatCurrency = (params) => {
     return new Intl.NumberFormat('de-DE', {style: 'currency', currency: 'EUR'}).format(params.value);
@@ -101,7 +99,7 @@ const Grid = ({ client }) => {
         setCustomerSingleView(customerSingleView);    
         setGridApi(params);
         params.api.sizeColumnsToFit();
-        const datasource = createServerSideDatasource({ client, searchText })
+        const datasource = createServerSideDatasource({ searchText, currentUser: app.currentUser })
         params.api.setServerSideDatasource(datasource);
         for await (const change of customerSingleView.watch({
             filter: {
@@ -176,7 +174,7 @@ const Grid = ({ client }) => {
     )
 }
 
-export default apolloClientConsumer(Grid);
+export default Grid;
 
 
 export class BtnCellRenderer extends Component {

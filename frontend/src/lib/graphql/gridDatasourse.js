@@ -1,86 +1,15 @@
-import { gql } from "@apollo/client";
-import { forEach } from "lodash";
-
-export const updateAccount = ({ client, accountNumber, amount }) => {
-  const query = {
-    query: gql`
-    mutation($accountNumber:String, $amount:Int) {
-      updateAccountBalance(input: {
-        accountNumber:$accountNumber,
-        amount:$amount
-      }) {
-        aknowledge
-      }
-    }
-    `,
-    variables: {
-      accountNumber,
-      amount
-    }
-  };
-  
-
-  client.query(query)
-    .then((res) => {
-      console.log(res)
-    })
-    .catch(err => console.error(err));
-}
-
-export const createServerSideDatasource = ({ client, searchText }) => {
+export const createServerSideDatasource = ({ client, searchText, currentUser }) => {
     return {
-      getRows: ({ request, successCallback, failCallback }) => {
-        //console.log(request);
-        const { startRow, endRow, sortModel } = request;
-            const query = { 
-                query: gql`
-                query gridDataWithInput($queryInput:GridQueryModel) { 
-                  getGridData(input:$queryInput) {
-                      lastRow
-                      query
-                      rows {
-                        _id
-                        age
-                        customerId
-                        firstName
-                        lastName
-                        totalBalance
-                        address {
-                          street
-                          city
-                          country
-                        }
-                        accounts {
-                          balance
-                          description
-                          number
-                          type
-                        }
-                        crmInformation {
-                          segmentation
-                          totalContactsYtd
-                        }
-                      }
-                    }
-                  }
-                `,
-              variables: {
-                "queryInput": {
-                    startRow,
-                    endRow,
-                    sortModel,
-                    searchText
-                  }
-                }
-            };
-            client.query(query)
-              .then((res) => {
-                successCallback(res.data.getGridData.rows, res.data.getGridData.lastRow?res.data.getGridData.lastRow:0)
-            })
-            .catch(err => {
-                console.error(err);
-                failCallback();
-            })
-        }
+      getRows: async ({ request, successCallback, failCallback }) => {
+        //console.log(await currentUser.functions.getGridDataFastCount({...request, searchText}));
+        currentUser.functions.getGridDataFastCount({...request, searchText})
+        .then((res) => {
+          successCallback(res.rows, res.lastRow?res.lastRow:0)
+        })
+        .catch(err => {
+            console.error(err);
+            failCallback();
+        })
+      }
     }
 }
